@@ -11,18 +11,6 @@ env:
 
 jobs:
 
-  build-ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --release
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: funkdigen2
-        path: target/release/funkdigen2
-
   build-mac:
     runs-on: macos-latest
     steps:
@@ -32,7 +20,7 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: funkdigen2
+        name: funkdigen2-mac
         path: target/release/funkdigen2
   
   build-windows:
@@ -44,5 +32,17 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: funkdigen2
+        name: funkdigen2-windows
         path: target/release/funkdigen2.exe
+
+  build-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: cargo build --release
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: funkdigen2-ubuntu
+        path: target/release/funkdigen2
