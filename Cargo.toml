@@ -1,0 +1,12 @@
+[package]
+name = "funkdigen2"
+version = "0.9.0"
+edition = "2021"
+description = "Generate all functional digraphs up to isomorphism"
+authors = [
+    "Antonio E. Porreca <antonio.porreca@lis-lab.fr>",
+    "Ekaterina Timofeeva <ekatim239@gmail.com>"
+]
+
+[dependencies]
+clap = { version = "4.1.11", features = ["derive"] }
