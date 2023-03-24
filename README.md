@@ -1,8 +1,20 @@
 # funkdigen2
 
-A generator of functional digraphs up to isomorphism
+A generator of functional digraphs (uniform outdegree 1) up to isomorphism, also called mapping patterns, finite (endo)functions, or finite dynamical systems; see sequence [A001372](https://oeis.org/A001372) on the [OEIS](https://oeis.org).
 
-Based on Antonio E. Porreca, Ekaterina Timofeeva, [Polynomial-delay generation of functional digraphs up to isomorphism](https://doi.org/10.48550/arXiv.2302.13832), arXiv:2302.13832, 2023 and on the original [`funkdigen`](https://github.com/aeporreca/funkdigen), a proof-of-concept Python implementation of the same algorithms.
+It is also possible to only generate *connected* functional digraphs (sequence [A002861](https://oeis.org/A002861) on the OEIS).
+
+Based on the paper
+
+> Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, arXiv:2302.13832, 2023, https://doi.org/10.48550/arXiv.2302.13832
+
+and on the original [`funkdigen`](https://github.com/aeporreca/funkdigen), a proof-of-concept Python implementation of the same algorithms.
+
+The output format is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23). To summarise, keeping in mind that each connected component of a functional digraph consists of directed trees (with arcs pointing towards the root) with roots arranged along a limit cycle:
+
+- Each functional digraph code is a list of the codes of its connected components in the lexicographic order induced by the algorithm for generating them.
+- Each connected functional digraph code is the lexicographically minimal rotation of the list of the codes of its trees.
+- The code of a tree $\sqrt{x}$
 
 <pre>
 Generate all functional digraphs up to isomorphism
