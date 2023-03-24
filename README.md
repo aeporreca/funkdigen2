@@ -4,7 +4,7 @@ An efficient generator of functional digraphs (uniform outdegree 1) up to isomor
 
 ## Background
 
-This is based on the paper
+`funkdigen2` is based on the paper
 
 > Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, arXiv:2302.13832, 2023, https://doi.org/10.48550/arXiv.2302.13832
 
