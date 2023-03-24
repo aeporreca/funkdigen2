@@ -40,7 +40,7 @@ type Comp = Vec<Rc<Tree>>;
 type Func = Vec<Rc<Comp>>;
 
 
-// Type for partitions of an integers
+// Type for partitions of an integer
 
 type Part = Vec<u8>;
 
