@@ -60,11 +60,11 @@ fn is_sorted<T: Ord>(s: &[T]) -> bool {
 // Check if slice s is its own minimal rotation. This is a naive
 // algorithm which increases the actual runtime from O(n^3) but, for
 // slices of lengths corresponding to practical digraph sizes, it
-// seems to more efficient than linear-time algorithms such as Kellogg
-// S. Booth's LCS (described in "Lexicographically least circular
-// substrings", Information Processing Letters 10(4), 1980, pages
-// 240-242, https://doi.org/10.1016/0020-0190(80)90149-0 and in the
-// errata published at https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)
+// seems to be more efficient than linear-time algorithms such as
+// Kellogg S. Booth's LCS (described in "Lexicographically least
+// circular substrings", Information Processing Letters 10(4), 1980,
+// pages 240-242, https://doi.org/10.1016/0020-0190(80)90149-0 and in
+// the errata published at https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)
 // which we used in the paper in order to obtain the theoretical upper
 // bound.
 
