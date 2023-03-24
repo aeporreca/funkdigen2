@@ -14,7 +14,7 @@ The output format is described in the [paper](https://doi.org/10.48550/arXiv.230
 
 - Each functional digraph code is a list of the codes of its connected components in the lexicographic order induced by the algorithm for generating them.
 - Each connected functional digraph code is the lexicographically minimal rotation of the list of the codes of its trees.
-- The code of a tree $T$ consisting of a root and immediate subtrees $T_1, \ldots, T_k$ is the list obtained by concatenating $[n]$ with $t_1, \ldots, t_k$, where $[n]$ is the list containing the number of nodes of $T$ and $t_1, \ldots, t_k$ are the codes of $T_1, \ldots, T_k$ (computed recursively) in lexicographic order.
+- The code of a tree $T$ is the list obtained by concatenating $[n]$ with $t_1, \ldots, t_k$, where $[n]$ is the list containing the number of nodes of $T$ and $t_1, \ldots, t_k$ are the codes (computed recursively) of its immediate subtrees $T_1, \ldots, T_k$ in lexicographic order.
 
 <pre>
 Generate all functional digraphs up to isomorphism
