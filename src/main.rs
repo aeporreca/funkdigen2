@@ -90,7 +90,7 @@ fn has_unmerge(c: &Comp, u: &Comp) -> bool {
     while i < c.len() && c[i][0] == 1 {
         i += 1;
     }
-    return u[i][0] == 1;
+    u[i][0] == 1
 }
 
 
