@@ -1,6 +1,6 @@
 [package]
 name = "funkdigen2"
-version = "0.9"
+version = "0.9.0"
 edition = "2021"
 description = "Generate all functional digraphs up to isomorphism"
 authors = [
