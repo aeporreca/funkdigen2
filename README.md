@@ -10,6 +10,8 @@ An efficient generator of functional digraphs (uniform outdegree 1) up to isomor
 
 and on the original [`funkdigen`](https://github.com/aeporreca/funkdigen), a proof-of-concept Python implementation of the same algorithms.
 
+## Output format
+
 The output format is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23). To summarise, keeping in mind that each connected component of a functional digraph consists of directed trees (with arcs pointing towards the root) with roots arranged along a limit cycle:
 
 - Each functional digraph code is a list of the codes of its connected components in the lexicographic order induced by the algorithm for generating them.
