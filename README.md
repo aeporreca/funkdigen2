@@ -12,7 +12,7 @@ and on the original [`funkdigen`](https://github.com/aeporreca/funkdigen), a pro
 
 ## Output format
 
-The output format is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23). To summarise, keeping in mind that each connected component of a functional digraph consists of directed trees (with arcs pointing towards the root) with roots arranged along a limit cycle:
+The output format is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25). To summarise, keeping in mind that each connected component of a functional digraph consists of directed trees (with arcs pointing towards the root) with roots arranged along a limit cycle:
 
 - Each functional digraph code is a list of the codes of its connected components in the lexicographic order induced by the algorithm for generating them.
 - Each connected functional digraph code is the lexicographically minimal rotation of the list of the codes of its trees.
