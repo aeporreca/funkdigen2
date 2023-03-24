@@ -22,11 +22,13 @@ The output format is described in the [paper](https://doi.org/10.48550/arXiv.230
 
 Precompiled binaries for various machines are available on the [Releases](https://github.com/aeporreca/funkdigen2/releases) page.
 
-If you want to build `funkdigen2` yourself (or if a binary release is not available for your machine), you can clone this repository (or download the code as a [ZIP file](https://github.com/aeporreca/funkdigen2/archive/refs/heads/master.zip)) and compile with
+`funkdigen2` is written in [Rust](https://www.rust-lang.org). If you want to build it yourself (or if a binary release is not available for your machine), just do a
 
 ```
 cargo build --release
 ```
+
+after having downloaded the source code on the [Releases](https://github.com/aeporreca/funkdigen2/releases) page (or cloned this repository, if you want the latest changes).
 
 ## Usage
 
