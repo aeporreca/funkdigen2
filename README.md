@@ -1,4 +1,4 @@
-# funkdigen2-rs
+# funkdigen2
 
 A generator of functional digraphs up to isomorphism
 
