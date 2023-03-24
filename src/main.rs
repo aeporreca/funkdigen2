@@ -225,7 +225,7 @@ fn cycle(n: u8) -> Comp {
 // Generate all components of n vertices and return their count;
 // also print them if print is true
 
-fn gen_comps(n: u8, print: bool) -> u32 {
+fn gen_comps(n: u8, print: bool) -> u64 {
     if n == 0 {
         return 0;
     }
@@ -343,7 +343,7 @@ fn next_func(g: &Func) -> Option<Func> {
 // Generate all functional digraphs of n vertices and return
 // their count; also print them if print is true
 
-fn gen_funcs(n: u8, print: bool) -> u32 {
+fn gen_funcs(n: u8, print: bool) -> u64 {
     let mut g = loops(n);
     let mut count = 1;
     loop {
