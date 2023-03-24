@@ -370,7 +370,7 @@ struct Args {
     size: u8,
     #[arg(short, long, help = "Only generate connected digraphs")]
     connected: bool,
-    #[arg(short, long, help = "Count the digraphs without printing")]
+    #[arg(short, long, help = "Count the digraphs without printing them")]
     quiet: bool,
 }
 
