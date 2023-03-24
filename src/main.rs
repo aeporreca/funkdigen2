@@ -233,7 +233,7 @@ fn gen_comps(n: u8, print: bool) -> u64 {
     let mut count = 1;
     loop {
         if print {
-            println!("{c:?}");
+            println!("[{c:?}]");
         }
         if let Some(d) = next_comp(&c) {
             count += 1;
@@ -380,13 +380,12 @@ struct Args {
 fn main() {
     let args = Args::parse();
     let n = args.size;
-    let gen = if args.connected {
-        gen_comps
-    } else {
-        gen_funcs
-    };
     let now = Instant::now();
-    let count = gen(n, !args.quiet);
+    let count = if args.connected {
+        gen_comps(n, !args.quiet)
+    } else {
+        gen_funcs(n, !args.quiet)
+    };
     let time = now.elapsed();
     eprintln!("{count} digraphs generated in {time:.2?}");
 }
