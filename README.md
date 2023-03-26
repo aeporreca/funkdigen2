@@ -74,7 +74,7 @@ A functional digraph has zero or more (weakly) connected components consisting o
 - The code of a connected component is the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of codes of its trees, in the order in which they appear along the limit cycle.
 - The code of a functional digraph is the list of codes of its components, sorted nondecreasingly according to the order in which the components are generated (by Algorithm 1 in the [paper](https://doi.org/10.48550/arXiv.2302.13832), which is neither lexicographic, nor “nice” to describe, unfortunately).
 
-This is precisely the output obtained when using the `-i` option:
+This is precisely the kind of output obtained when using the `-i` option:
 
 ```
 $ funkdigen2 -i 5
