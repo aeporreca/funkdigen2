@@ -66,13 +66,13 @@ Graph 47, order 5.
   4 : 0;
 ```
 
-With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is slightly faster and asymptotically smaller ($O(n \log n)$ vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
+With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is slightly faster and asymptotically smaller (O(*n* log *n*) vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
 
 A functional digraph has zero or more (weakly) connected components consisting of a limit cycle with (rooted, unordered, directed) trees having their roots along this cycle. This is reflected by the isomorphism codes used internally:
 
-- The [isomorphism code of a tree](https://doi.org/10.1007/978-3-030-81885-2_4) of $n$ nodes is the list of integer obtained concatenating $[n]$ with the codes of its immediate subtrees, computed recursively, in lexicographic order. For instance, the almost-complete binary tree of 6 nodes has code $[6, 2, 1, 3, 1, 1]$.
+- The [isomorphism code of a tree](https://doi.org/10.1007/978-3-030-81885-2_4) of *n* nodes is the list of integer obtained concatenating [*n*] with the codes of its immediate subtrees, computed recursively, in lexicographic order. For instance, the almost-complete binary tree of 6 nodes has code [6, 2, 1, 3, 1, 1].
 - The code of a connected component is the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of codes of its trees, in the order in which they appear along the limit cycle.
-- The code of a functional digraph is the list of codes of its component, sorted nondecreasingly according to the order in which the components are generated (which is *not* lexicographic).
+- The code of a functional digraph is the list of codes of its component, sorted nondecreasingly according to the order in which the components are generated (which is neither lexicographic, nor “nice” to describe, unfortunately).
 
 This is precisely the output obtained when using the `-i` option:
 
