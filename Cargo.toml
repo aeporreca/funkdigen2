@@ -10,3 +10,6 @@ authors = [
 
 [dependencies]
 clap = { version = "4.1.11", features = ["derive"] }
+
+[profile.release]
+strip = "symbols"

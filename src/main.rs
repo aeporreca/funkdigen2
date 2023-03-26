@@ -58,13 +58,13 @@ fn is_sorted<T: Ord>(s: &[T]) -> bool {
 
 
 // Check if slice s is its own minimal rotation. This is a naive
-// algorithm which increases the actual runtime from O(n^3) but, for
-// slices of lengths corresponding to practical digraph sizes, it
-// seems to be more efficient than linear-time algorithms such as
-// Kellogg S. Booth's LCS (described in "Lexicographically least
-// circular substrings", Information Processing Letters 10(4), 1980,
-// pages 240-242, https://doi.org/10.1016/0020-0190(80)90149-0 and in
-// the errata published at https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)
+// algorithm which increases the theoretical runtime from O(n^3) but,
+// for slices of lengths corresponding to practical digraph sizes, it
+// seems to be more efficient in practice than linear-time algorithms
+// such as Kellogg S. Booth's LCS (described in "Lexicographically
+// least circular substrings", Information Processing Letters 10(4),
+// 1980, pages 240-242, https://doi.org/10.1016/0020-0190(80)90149-0
+// and in the errata at https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)
 // which we used in the paper in order to obtain the theoretical upper
 // bound.
 
@@ -255,9 +255,10 @@ fn sum_part(p: &Part) -> usize {
 
 
 // Compute the next partition of integer n in lexicographic order, if
-// it exists. The algorithm is based on Algorithm 3.1 of "Generating
-// all partitions: A comparison of two encodings" by Jerome Kelleher
-// and Barry O'Sullivan, https://arxiv.org/abs/0909.2331
+// it exists. The algorithm is based on Algorithm 3.1 of Jerome
+// Kelleher, Barry O'Sullivan, "Generating all partitions: A
+// comparison of two encodings", arXiv:0909.2331, 2015,
+// https://arxiv.org/abs/0909.2331
 
 fn next_part(p: &Part) -> Option<Part> {
     if p.len() <= 1 {
