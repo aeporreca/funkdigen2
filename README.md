@@ -69,4 +69,4 @@ Generate all functional digraphs up to isomorphism
 
 ## Authors and license
 
-`funkdigen2` is written by [Antonio E. Porreca](https://aeporreca.org) and [Ekaterina Timofeeva](https://dblp.org/pid/341/1313.html) and its source code is distributed under the GNU GPL 3.0 license.
+The `funkdigen2` software is written by [Antonio E. Porreca](https://aeporreca.org) and [Ekaterina Timofeeva](https://dblp.org/pid/341/1313.html) and its source code is distributed under the GNU GPL 3.0 license.
