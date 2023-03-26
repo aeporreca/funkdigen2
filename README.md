@@ -41,13 +41,13 @@ However, with the command-line option `-i` you can also get the output in the in
 
 Precompiled binaries for various machines are available on the [Releases](https://github.com/aeporreca/funkdigen2/releases) page.
 
-`funkdigen2` is written in [Rust](https://www.rust-lang.org). If you want to build it yourself (or if a binary release is not available for your machine, or if you want the latest changes), just do a
+`funkdigen2` is written in [Rust](https://www.rust-lang.org). If you want to build it yourself (or if a binary release is not available for your machine), just do a
 
 ```
 cargo build --release
 ```
 
-after downloading the source code on the [Releases](https://github.com/aeporreca/funkdigen2/releases) page (or cloned this repository, if you want the latest changes).
+after downloading the source code on the [Releases](https://github.com/aeporreca/funkdigen2/releases) page (or cloning this repository, if you want the latest changes).
 
 ## Usage
 
