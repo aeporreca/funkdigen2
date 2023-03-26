@@ -45,6 +45,14 @@ type Func = Vec<Rc<Comp>>;
 type Part = Vec<u8>;
 
 
+// Types for adjacency vectors (i.e., adjacency lists for digraphs
+// with uniform outdegree 1) and bit strings; these are only used when
+// printing in digraph6 format
+
+type Adj = Vec<u8>;
+type Bits = Vec<bool>;
+
+
 // Check if slice s is sorted nondecreasingly
 
 fn is_sorted<T: Ord>(s: &[T]) -> bool {
@@ -222,19 +230,18 @@ fn cycle(n: u8) -> Comp {
 }
 
 
-// Generate all components of n vertices and return their count;
-// also print them if print is true
+// Generate all components of n vertices, print them using the
+// supplied print function and return their count
 
-fn gen_comps(n: u8, print: bool) -> u64 {
+fn generate_comps(n: u8, print: fn(&Func)) -> u64 {
     if n == 0 {
         return 0;
     }
     let mut c = cycle(n);
     let mut count = 1;
     loop {
-        if print {
-            println!("[{c:?}]");
-        }
+        let g: Func = vec![Rc::new(c.clone())];
+        print(&g);
         if let Some(d) = next_comp(&c) {
             count += 1;
             c = d;
@@ -341,16 +348,14 @@ fn next_func(g: &Func) -> Option<Func> {
 }
 
 
-// Generate all functional digraphs of n vertices and return
-// their count; also print them if print is true
+// Generate all functional digraphs of n vertices, print them using
+// the supplied print function and return their count
 
-fn gen_funcs(n: u8, print: bool) -> u64 {
+fn generate_funcs(n: u8, print: fn(&Func)) -> u64 {
     let mut g = loops(n);
     let mut count = 1;
     loop {
-        if print {
-            println!("{g:?}");
-        }
+        print(&g);
         if let Some(f) = next_func(&g) {
             count += 1;
             g = f;
@@ -362,6 +367,135 @@ fn gen_funcs(n: u8, print: bool) -> u64 {
 }
 
 
+// Compute the adjacency vector of a tree; use b (base) as the name of
+// the root (it is 0 for an isolated tree, but of course can be > 0
+// when there are several trees)
+
+fn tree_to_adj(t: &Tree, b: usize) -> Adj {
+    let mut a = vec![0; t.len()];
+    fill_tree_adj(t, &mut a, 0, 0, b);
+    a
+}
+
+
+// Fill a with the adjacency vector of tree t starting from its
+// subtree having root at position i; r is the position of the parent
+// of this subtree (if any); use b as the name of the root of t
+
+fn fill_tree_adj(t: &Tree, a: &mut Adj, i: usize, r: usize, b: usize) {
+    a[i] = (r + b) as u8;
+    let mut j = i + 1;
+    while j < i + t[i] as usize {
+        fill_tree_adj(t, a, j, i, b);
+        j += t[j] as usize;
+    }
+}
+
+
+// Compute the adjacency vector of component c, using b as the name of
+// the first vertex of c
+
+fn comp_to_adj(c: &Comp, b: usize) -> Adj {
+    let mut a = Vec::new();
+    let mut j = 0;
+    for i in 0..c.len() {
+        let mut a1 = tree_to_adj(&c[i], b + j);
+        if i < c.len() - 1 {
+            a1[0] = (b + j + c[i].len()) as u8;
+        } else {
+            a1[0] = b as u8;
+        }
+        a.extend(a1);
+        j += c[i].len();
+    }
+    a
+}
+
+
+// Compute the adjacency vector of functional digraph g
+
+fn func_to_adj(g: &Func) -> Adj {
+    let mut a = Vec::new();
+    let mut b = 0;
+    for i in 0..g.len() {
+        let a1 = comp_to_adj(&g[i], b);
+        b += a1.len();
+        a.extend(a1);
+    }
+    a
+}
+
+
+// Convert an adjacency vector to an adjacency matrix represented as a
+// bit vector (containing the concatenation of the rows of the matrix)
+
+fn adj_matrix(a: &Adj) -> Bits {
+    let n = a.len();
+    let mut m = Vec::new();
+    for i in 0..n {
+        for j in 0..n {
+            m.push(a[i] == j as u8);
+        }
+    }
+    m
+}
+
+
+// Convert a bit string into an ASCII string according to the digraph6
+// specifications (https://users.cecs.anu.edu.au/~bdm/data/formats.txt,
+// function R(x))
+
+fn bits_to_string(x: &Bits) -> String {
+    let mut s = String::new();
+    let mut i = 0;
+    while i < x.len() {
+        let mut n = 0;
+        for j in i..i + 6 {
+            if j < x.len() {
+                n = 2 * n + x[j] as u8;
+            } else {
+                n = 2 * n;
+            }
+        }
+        s.push((n + 63) as char);
+        i += 6;
+    }
+    s
+}
+
+
+// Print functional digraph g in digraph6 format
+
+fn print_digraph6(g: &Func) {
+    let mut s = String::from('&');
+    let a = func_to_adj(&g);
+    let n = a.len();
+    if n < 63 {
+        s.push((n + 63) as u8 as char);
+    } else {
+        todo!("digraph6 output for n >= 63");
+    }
+    let m = adj_matrix(&a);
+    s.extend(bits_to_string(&m).chars());
+    println!("{s}");
+}
+
+
+// Print functional digraph g in internal format (list of lists of
+// lists of integers)
+
+fn print_internal(g: &Func) {
+    println!("{g:?}");
+}
+
+
+// Do not print functional digraph _g
+
+fn print_nothing(_g: &Func) {
+    // do nothing
+}
+
+
 // Structure for the command-line arguments
 
 #[derive(Parser)]
@@ -369,8 +503,14 @@ fn gen_funcs(n: u8, print: bool) -> u64 {
 struct Args {
     #[arg(help = "Number of vertices")]
     size: u8,
+
     #[arg(short, long, help = "Only generate connected digraphs")]
     connected: bool,
+
+    #[arg(short, long,
+          help = "Print the internal representation instead of digraph6")]
+    internal: bool,
+
     #[arg(short, long, help = "Count the digraphs without printing them")]
     quiet: bool,
 }
@@ -381,12 +521,20 @@ struct Args {
 fn main() {
     let args = Args::parse();
     let n = args.size;
-    let now = Instant::now();
-    let count = if args.connected {
-        gen_comps(n, !args.quiet)
+    let generate = if args.connected {
+        generate_comps
     } else {
-        gen_funcs(n, !args.quiet)
+        generate_funcs
     };
+    let print = if args.quiet {
+        print_nothing
+    } else if args.internal {
+        print_internal
+    } else {
+        print_digraph6
+    };
+    let now = Instant::now();
+    let count = generate(n, print);
     let time = now.elapsed();
     eprintln!("{count} digraphs generated in {time:.2?}");
 }
