@@ -37,7 +37,7 @@ jobs:
         path: target/release/funkdigen2.exe
 
   build-ubuntu:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
     - name: Build
