@@ -43,7 +43,7 @@ $ funkdigen2 5
 47 digraphs generated in 194.67µs
 ```
 
-This format is compatible with several of the `gtools` programs that come with the [`nauty` & `Traces`](https://pallini.di.uniroma1.it) distribution (also available, e.g., as `nauty` in the Ubuntu or Homebrew repositories). For instance, you can pipe the output of `funkdigen2` into `showg` in order to get a human-readable representation by adjacency lists:
+This format is compatible with several of the `gtools` programs that come with the [`nauty & Traces`](https://pallini.di.uniroma1.it) distribution (also available, e.g., as `nauty` in the Ubuntu or Homebrew repositories). For instance, you can pipe the output of `funkdigen2` into `showg` in order to get a human-readable representation by adjacency lists:
 
 ```
 $ funkdigen2 5 | showg
@@ -85,21 +85,21 @@ $ funkdigen2 -i 5
 
 ## Usage
 
-<pre>
+```
 Generate all functional digraphs up to isomorphism
 
-<b>Usage: funkdigen2</b> [OPTIONS] &lt;SIZE&gt;
+Usage: funkdigen2 [OPTIONS] <SIZE>
 
-<b>Arguments:</b>
-  &lt;SIZE&gt;  Number of vertices
+Arguments:
+  <SIZE>  Number of vertices
 
-<b>Options:</b>
-  <b>-c</b>, <b>--connected</b>  Only generate connected digraphs
-  <b>-i</b>, <b>--internal</b>   Print the internal representation instead of digraph6
-  <b>-q</b>, <b>--quiet</b>      Count the digraphs without printing them
-  <b>-h</b>, <b>--help</b>       Print help
-  <b>-V</b>, <b>--version</b>    Print version
-</pre>
+Options:
+  -c, --connected  Only generate connected digraphs
+  -i, --internal   Print the internal representation instead of digraph6
+  -q, --quiet      Count the digraphs without printing them
+  -h, --help       Print help
+  -V, --version    Print version
+```
 
 
 ## Authors and license
