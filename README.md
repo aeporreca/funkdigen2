@@ -22,7 +22,7 @@ Precompiled binaries for various machines are available on the [Releases](https:
 cargo build --release
 ```
 
-after downloading the source code on the [Releases](https://github.com/aeporreca/funkdigen2/releases) page (or cloning this repository, if you want the latest changes).
+inside the directory where you have uncompressed the source code downloaded from the [Releases](https://github.com/aeporreca/funkdigen2/releases) page (or cloned this repository, if you want the latest changes). After compiling, the executable `funkdigen2` (or `funkdigen2.exe`) will be found in the directory `./target/release`.
 
 
 ## Output formats
