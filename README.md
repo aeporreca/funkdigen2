@@ -27,7 +27,7 @@ inside the directory where you have uncompressed the source code downloaded from
 
 ## Output formats
 
-The default output format for `funkdigen2` is [`digraph6`](https://users.cecs.anu.edu.au/~bdm/data/formats.html), which is essentially an [ASCII encoding](https://users.cecs.anu.edu.au/~bdm/data/formats.txt) of the adjacency matrix of a digraph:
+The default output format for `funkdigen2` is [`digraph6`](https://users.cecs.anu.edu.au/~bdm/data/formats.html), which is essentially an [ASCII encoding](https://users.cecs.anu.edu.au/~bdm/data/formats.txt) of the number of nodes followed by the adjacency matrix of the digraph:
 
 ```
 $ funkdigen2 5   
@@ -68,7 +68,13 @@ Graph 47, order 5.
 
 With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is slightly faster and asymptotically smaller ($O(n \log n)$ vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
 
-Essentially, in the internal format each functional digraph is represented by a list of connected components (ordered by their own generation order), and each component by the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of isomorphism codes of the trees connected to its limit cycle:
+A functional digraph has zero or more (weakly) connected components consisting of a limit cycle with (rooted, unordered, directed) trees having their roots along this cycle. This is reflected by the isomorphism codes used internally:
+
+- The [isomorphism code of a tree](https://doi.org/10.1007/978-3-030-81885-2_4) of $n$ nodes is the list of integer obtained concatenating $[n]$ with the codes of its immediate subtrees, computed recursively. For instance, the complete binary tree of 7 nodes has code $[7, 3, 1, 1, 3, 1, 1]$.
+- The code of a connected component is the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of codes of its trees, in the order in which they appear along the limit cycle.
+- The code of a functional digraph is the list of codes of its component, sorted nondecreasingly according to the order in which the components are generated (which is *not* lexicographic).
+
+This is precisely the output obtained when using the `-i` option:
 
 ```
 $ funkdigen2 -i 5
