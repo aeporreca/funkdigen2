@@ -42,6 +42,7 @@ Generate all functional digraphs up to isomorphism
 
 <b>Options:</b>
   <b>-c</b>, <b>--connected</b>  Only generate connected digraphs
+  <b>-i</b>, <b>--internal</b>   Print the internal representation instead of digraph6
   <b>-q</b>, <b>--quiet</b>      Count the digraphs without printing them
   <b>-h</b>, <b>--help</b>       Print help
   <b>-V</b>, <b>--version</b>    Print version
