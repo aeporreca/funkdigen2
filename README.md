@@ -104,4 +104,4 @@ Options:
 
 ## Authors and license
 
-The `funkdigen2` software is copyright (c) 2023 by [Antonio E. Porreca](https://aeporreca.org) and [Ekaterina Timofeeva](https://dblp.org/pid/341/1313.html) and its source code is distributed under the GNU GPL 3.0 license.
+The `funkdigen2` software is copyright © 2023 by [Antonio E. Porreca](https://aeporreca.org) and [Ekaterina Timofeeva](https://dblp.org/pid/341/1313.html), and its source code is distributed under the GNU GPL 3.0 license.
