@@ -10,7 +10,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is proof-of-concept, literal Python implementation of the same algorithms.
 
-## Output format
+## Output formats
 
 The default output format for `funkdigen2` is [`digraph6`](https://users.cecs.anu.edu.au/~bdm/data/formats.html), which is essentially an [ASCII encoding](https://users.cecs.anu.edu.au/~bdm/data/formats.txt) of the adjacency matrix of a digraph. This format is compatible with several of the `gtools` programs that come with the [`nauty` & `Traces`](https://pallini.di.uniroma1.it) distribution. For instance, you can pipe the output of `funkdigen2` into `showg` in order to get a human-readable representation by adjacency lists:
 
