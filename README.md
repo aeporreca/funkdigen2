@@ -66,7 +66,7 @@ Graph 2, order 5.
 ...
 ```
 
-With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is slightly faster and asymptotically smaller (linear vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
+With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is slightly faster and asymptotically smaller ($O(n \log n)$ vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
 
 Essentially, in the internal format each functional digraph is represented by a list of connected components (ordered by their own generation order), and each component by the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of isomorphism codes of the trees connected to its limit cycle:
 
