@@ -43,7 +43,7 @@ $ funkdigen2 5
 47 digraphs generated in 194.67µs
 ```
 
-This format is compatible with several of the `gtools` programs that come with the [`nauty & Traces`](https://pallini.di.uniroma1.it) distribution (also available, e.g., as `nauty` in the Ubuntu or Homebrew repositories). For instance, you can pipe the output of `funkdigen2` into `showg` in order to get a human-readable representation by adjacency lists:
+This format is compatible with several of the `gtools` programs that come with the [`nauty & Traces`](https://pallini.di.uniroma1.it) distribution (also available, e.g., as the package `nauty` in the [Ubuntu](https://packages.ubuntu.com/search?keywords=nauty) or [Homebrew](https://formulae.brew.sh/formula/nauty) repositories). For instance, you can pipe the output of `funkdigen2` into `showg` in order to get a human-readable representation by adjacency lists:
 
 ```
 $ funkdigen2 5 | showg
@@ -66,7 +66,9 @@ Graph 2, order 5.
 ...
 ```
 
-However, with the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25). Essentially, each functional digraph is represented by a list of connected components (ordered by their own generation order), and each component by the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of isomorphism codes of the trees connected to its limit cycle:
+With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is slightly faster and asymptotically smaller (linear vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
+
+Essentially, in the internal format each functional digraph is represented by a list of connected components (ordered by their own generation order), and each component by the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of isomorphism codes of the trees connected to its limit cycle:
 
 ```
 $ funkdigen2 -i 5
