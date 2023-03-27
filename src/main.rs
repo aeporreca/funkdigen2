@@ -196,7 +196,7 @@ fn next_comp(c: &Comp) -> Option<Comp> {
         }
     }
     let mut res = unmerge(&c);
-    // This loop is actually executed at most twice
+    // This loop is actually executed at most twice, see the paper
     while let Some((u, l, r)) = res {
         if let Some(m) = next_merge(&u, l, r + 1) {
             return Some(m);
@@ -209,18 +209,18 @@ fn next_comp(c: &Comp) -> Option<Comp> {
 
 // Compute the number of vertices of a component
 
-fn size(c: &Comp) -> u8 {
+fn comp_size(c: &Comp) -> usize {
     let mut n = 0;
     for i in 0..c.len() {
         n += c[i].len();
     }
-    n as u8
+    n
 }
 
 
 // Return the component consising of a cycle of length n
 
-fn cycle(n: u8) -> Comp {
+fn cycle(n: usize) -> Comp {
     let mut c = Vec::new();
     let t = Rc::new(vec![1]);
     for _ in 0..n {
@@ -233,7 +233,7 @@ fn cycle(n: u8) -> Comp {
 // Generate all components of n vertices, print them using the
 // supplied print function and return their count
 
-fn generate_comps(n: u8, print: fn(&Func)) -> u64 {
+fn generate_comps(n: usize, print: fn(&Func)) -> u64 {
     if n == 0 {
         return 0;
     }
@@ -294,7 +294,7 @@ fn next_part(p: &Part) -> Option<Part> {
 fn part(g: &Func) -> Part {
     let mut p = Vec::new();
     for i in 0..g.len() {
-        p.push(size(&g[i]));
+        p.push(comp_size(&g[i]) as u8);
     }
     p
 }
@@ -302,7 +302,7 @@ fn part(g: &Func) -> Part {
 
 // Return the functional digraph consisting of n self-loops
 
-fn loops(n: u8) -> Func {
+fn loops(n: usize) -> Func {
     let mut g = Vec::new();
     let c = Rc::new(cycle(1));
     for _ in 0..n {
@@ -324,10 +324,10 @@ fn next_func(g: &Func) -> Option<Func> {
             for i in 0..h {
                 f.push(Rc::clone(&g[i]));
             }
-            let n = size(&c);
+            let n = comp_size(&c);
             f.push(Rc::new(c));
             for i in h + 1..g.len() {
-                let m = size(&g[i]);
+                let m = comp_size(&g[i]);
                 if m == n {
                     f.push(Rc::clone(&f[h]));
                 } else {
@@ -340,7 +340,7 @@ fn next_func(g: &Func) -> Option<Func> {
     let p = part(&g);
     if let Some(q) = next_part(&p) {
         for i in 0..q.len() {
-            f.push(Rc::new(cycle(q[i])));
+            f.push(Rc::new(cycle(q[i] as usize)));
         }
         return Some(f);
     }
@@ -351,7 +351,7 @@ fn next_func(g: &Func) -> Option<Func> {
 // Generate all functional digraphs of n vertices, print them using
 // the supplied print function and return their count
 
-fn generate_funcs(n: u8, print: fn(&Func)) -> u64 {
+fn generate_funcs(n: usize, print: fn(&Func)) -> u64 {
     let mut g = loops(n);
     let mut count = 1;
     loop {
@@ -464,16 +464,26 @@ fn bits_to_string(x: &Bits) -> String {
 }
 
 
-// Print functional digraph g in digraph6 format
+// Print functional digraph g in digraph6 format, implements function
+// N(n) of the digraph6 specifications and uses R(x)
+// (https://users.cecs.anu.edu.au/~bdm/data/formats.txt)
 
 fn print_digraph6(g: &Func) {
     let mut s = String::from('&');
     let a = func_to_adj(&g);
-    let n = a.len();
+    let mut n = a.len();
     if n < 63 {
         s.push((n + 63) as u8 as char);
     } else {
-        todo!("digraph6 output for n >= 63");
+        // 63 <= n <= 255, since args.size is u8
+        let mut b = Vec::new();
+        for _ in 0..18 {
+            b.push(n % 2 == 1);
+            n /= 2;
+        }
+        b.reverse();
+        s.push(126 as char);
+        s.extend(bits_to_string(&b).chars());
     }
     let m = adj_matrix(&a);
     s.extend(bits_to_string(&m).chars());
@@ -520,7 +530,7 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    let n = args.size;
+    let n = args.size as usize;
     let generate = if args.connected {
         generate_comps
     } else {
