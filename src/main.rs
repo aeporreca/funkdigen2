@@ -440,7 +440,7 @@ fn adj_matrix(a: &Adj) -> Bits {
 }
 
 
-// Print a bit string as an ASCII string according to the digraph6
+// Print a bit vector as an ASCII string according to the digraph6
 // specifications (https://users.cecs.anu.edu.au/~bdm/data/formats.txt,
 // function R(x))
 
