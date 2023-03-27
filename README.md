@@ -16,7 +16,7 @@ and a more efficient version of the original [`funkdigen`](https://github.com/ae
 
 Precompiled binaries for various machines are available on the [Releases](https://github.com/aeporreca/funkdigen2/releases) page.
 
-`funkdigen2` is written in [Rust](https://www.rust-lang.org). If you want to build it yourself (or if a binary release is not available for your machine), just do a
+If you want to build `funkdigen2` yourself (or if a binary release is not available for your machine), you need a working [Rust](https://www.rust-lang.org) development environment; then just do a
 
 ```
 cargo build --release
