@@ -444,8 +444,7 @@ fn adj_matrix(a: &Adj) -> Bits {
 // specifications (https://users.cecs.anu.edu.au/~bdm/data/formats.txt,
 // function R(x))
 
-fn bits_to_string(x: &Bits) -> String {
-    let mut s = String::new();
+fn print_bits(x: &Bits) {
     let mut i = 0;
     while i < x.len() {
         let mut n = 0;
@@ -456,10 +455,9 @@ fn bits_to_string(x: &Bits) -> String {
                 n = 2 * n;
             }
         }
-        s.push((n + 63) as char);
+        print!("{}", (n + 63) as char);
         i += 6;
     }
-    s
 }
 
 
@@ -482,10 +480,11 @@ fn print_digraph6(g: &Func) {
         }
         b.reverse();
         print!("{}", 126 as char);
-        print!("{}", bits_to_string(&b))
+        print_bits(&b);
     }
     let m = adj_matrix(&a);
-    println!("{}", bits_to_string(&m));
+    print_bits(&m);
+    println!();
 }
 
 
