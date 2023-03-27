@@ -440,11 +440,12 @@ fn adj_matrix(a: &Adj) -> Bits {
 }
 
 
-// Print a bit vector as an ASCII string according to the digraph6
+// Convert a bit vector into an ASCII string according to the digraph6
 // specifications (https://users.cecs.anu.edu.au/~bdm/data/formats.txt,
 // function R(x))
 
-fn print_bits(x: &Bits) {
+fn bits_to_string(x: &Bits) -> String {
+    let mut s = String::new();
     let mut i = 0;
     while i < x.len() {
         let mut n = 0;
@@ -455,9 +456,10 @@ fn print_bits(x: &Bits) {
                 n = 2 * n;
             }
         }
-        print!("{}", (n + 63) as char);
+        s.push((n + 63) as char);
         i += 6;
     }
+    s
 }
 
 
@@ -480,11 +482,10 @@ fn print_digraph6(g: &Func) {
         }
         b.reverse();
         print!("{}", 126 as char);
-        print_bits(&b);
+        print!("{}", bits_to_string(&b))
     }
     let m = adj_matrix(&a);
-    print_bits(&m);
-    println!();
+    println!("{}", bits_to_string(&m));
 }
 
 
