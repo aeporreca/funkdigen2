@@ -77,10 +77,9 @@ fn is_sorted<T: Ord>(s: &[T]) -> bool {
 // bound.
 
 fn is_min_rotation<T: Ord>(s: &[T]) -> bool {
-    let n = s.len();
-    for r in 1..n {
-        for i in 0..n {
-            match s[i].cmp(&s[(i + r) % n]) {
+    for r in 1..s.len() {
+        for i in 0..s.len() {
+            match s[i].cmp(&s[(i + r) % s.len()]) {
                 Greater => return false,
                 Less => break,
                 Equal => (),
@@ -88,17 +87,6 @@ fn is_min_rotation<T: Ord>(s: &[T]) -> bool {
         }
     }
     true
-}
-
-
-// Check if component c has unmerge u
-
-fn has_unmerge(c: &Comp, u: &Comp) -> bool {
-    let mut i = 0;
-    while i < c.len() && c[i][0] == 1 {
-        i += 1;
-    }
-    u[i][0] == 1
 }
 
 
@@ -130,6 +118,19 @@ fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
         i += 1;
     }
     Some((u, l, r))
+}
+
+
+
+// Check if component c has unmerge u (this is not a general purpose
+// function, it only works in the context of the function merge below)
+
+fn has_unmerge(c: &Comp, u: &Comp) -> bool {
+    let mut i = 0;
+    while i < c.len() && c[i][0] == 1 {
+        i += 1;
+    }
+    u[i][0] == 1
 }
 
 
@@ -370,7 +371,7 @@ fn generate_funcs(n: usize, print: fn(&Func)) -> u64 {
 // the root (it is 0 for an isolated tree, but of course can be > 0
 // when there are several trees)
 
-fn tree_to_adj(t: &Tree, b: usize) -> Adj {
+fn tree_adj(t: &Tree, b: usize) -> Adj {
     let mut a = vec![0; t.len()];
     fill_tree_adj(t, &mut a, 0, 0, b);
     a
@@ -394,11 +395,11 @@ fn fill_tree_adj(t: &Tree, a: &mut Adj, i: usize, r: usize, b: usize) {
 // Compute the adjacency vector of component c, using b as the name of
 // the first vertex of c
 
-fn comp_to_adj(c: &Comp, b: usize) -> Adj {
+fn comp_adj(c: &Comp, b: usize) -> Adj {
     let mut a = Adj::new();
     let mut j = 0;
     for i in 0..c.len() {
-        let mut a1 = tree_to_adj(&c[i], b + j);
+        let mut a1 = tree_adj(&c[i], b + j);
         if i < c.len() - 1 {
             a1[0] = (b + j + c[i].len()) as u8;
         } else {
@@ -413,11 +414,11 @@ fn comp_to_adj(c: &Comp, b: usize) -> Adj {
 
 // Compute the adjacency vector of functional digraph g
 
-fn func_to_adj(g: &Func) -> Adj {
+fn func_adj(g: &Func) -> Adj {
     let mut a = Adj::new();
     let mut b = 0;
     for i in 0..g.len() {
-        let a1 = comp_to_adj(&g[i], b);
+        let a1 = comp_adj(&g[i], b);
         b += a1.len();
         a.extend(a1);
     }
@@ -429,10 +430,9 @@ fn func_to_adj(g: &Func) -> Adj {
 // bit vector (containing the concatenation of the rows of the matrix)
 
 fn adj_matrix(a: &Adj) -> Bits {
-    let n = a.len();
     let mut m = Bits::new();
-    for i in 0..n {
-        for j in 0..n {
+    for i in 0..a.len() {
+        for j in 0..a.len() {
             m.push(a[i] == j as u8);
         }
     }
@@ -444,7 +444,7 @@ fn adj_matrix(a: &Adj) -> Bits {
 // specifications (https://users.cecs.anu.edu.au/~bdm/data/formats.txt,
 // function R(x))
 
-fn bits_to_string(x: &Bits) -> String {
+fn ascii(x: &Bits) -> String {
     let mut s = String::new();
     let mut i = 0;
     while i < x.len() {
@@ -469,7 +469,7 @@ fn bits_to_string(x: &Bits) -> String {
 
 fn print_digraph6(g: &Func) {
     print!("&");
-    let a = func_to_adj(&g);
+    let a = func_adj(&g);
     let mut n = a.len();
     if n < 63 {
         print!("{}", (n as u8 + 63) as char);
@@ -482,10 +482,10 @@ fn print_digraph6(g: &Func) {
         }
         b.reverse();
         print!("{}", 126 as char);
-        print!("{}", bits_to_string(&b))
+        print!("{}", ascii(&b))
     }
     let m = adj_matrix(&a);
-    println!("{}", bits_to_string(&m));
+    println!("{}", ascii(&m));
 }
 
 
