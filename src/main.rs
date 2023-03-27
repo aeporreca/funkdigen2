@@ -468,11 +468,11 @@ fn bits_to_string(x: &Bits) -> String {
 // (https://users.cecs.anu.edu.au/~bdm/data/formats.txt)
 
 fn print_digraph6(g: &Func) {
-    let mut s = String::from('&');
+    print!("&");
     let a = func_to_adj(&g);
     let mut n = a.len();
     if n < 63 {
-        s.push((n as u8 + 63) as char);
+        print!("{}", (n as u8 + 63) as char);
     } else {
         // 63 <= n <= 255, since args.size is u8
         let mut b = Bits::new();
@@ -481,12 +481,11 @@ fn print_digraph6(g: &Func) {
             n /= 2;
         }
         b.reverse();
-        s.push(126 as char);
-        s.extend(bits_to_string(&b).chars());
+        print!("{}", 126 as char);
+        print!("{}", bits_to_string(&b))
     }
     let m = adj_matrix(&a);
-    s.extend(bits_to_string(&m).chars());
-    println!("{s}");
+    println!("{}", bits_to_string(&m));
 }
 
 
