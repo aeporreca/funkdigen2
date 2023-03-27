@@ -7,7 +7,7 @@ An efficient generator of functional digraphs (uniform outdegree 1) up to isomor
 
 The `funkdigen2` generator is an implementation of the algorithms described in the paper
 
-> Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, arXiv:2302.13832, 2023, https://doi.org/10.48550/arXiv.2302.13832
+> Antonio E. Porreca, Ekaterina Timofeeva, *Polynomial-delay generation of functional digraphs up to isomorphism*, arXiv:2302.13832, 2023, https://doi.org/10.48550/arXiv.2302.13832
 
 and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is proof-of-concept, straightforward Python implementation of the same algorithms.
 
