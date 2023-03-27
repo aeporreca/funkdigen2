@@ -194,7 +194,8 @@ fn next_comp(c: &Comp) -> Option<Comp> {
         }
     }
     let mut res = unmerge(&c);
-    // This loop is actually executed at most twice, see the paper
+    // This loop is actually executed at most twice,
+    // see Lemma 15 of  the paper
     while let Some((u, l, r)) = res {
         if let Some(m) = next_merge(&u, l, r + 1) {
             return Some(m);
