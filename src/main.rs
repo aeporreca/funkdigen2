@@ -472,7 +472,7 @@ fn print_digraph6(g: &Func) {
     let a = func_to_adj(&g);
     let mut n = a.len();
     if n < 63 {
-        s.push((n + 63) as u8 as char);
+        s.push((n as u8 + 63) as char);
     } else {
         // 63 <= n <= 255, since args.size is u8
         let mut b = Bits::new();
