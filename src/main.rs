@@ -166,9 +166,7 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
 // (decreasing) and up to and exluding r (increasing); this
 // corresponds to the lexicographically minimal merge
 
-fn next_merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
-    let mut l = l;
-    let mut r = r;
+fn next_merge(c: &Comp, mut l: usize, mut r: usize) -> Option<Comp> {
     loop {
         while r <= c.len() {
             if let Some(m) = merge(c, l, r) {
