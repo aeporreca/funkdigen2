@@ -106,7 +106,7 @@ fn has_unmerge(c: &Comp, u: &Comp) -> bool {
 // such that remerging u between l and r gives back c
 
 fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
-    let mut u = Vec::new();
+    let mut u = Comp::new();
     let mut l = 0;
     while l < c.len() && c[l][0] == 1 {
         u.push(Rc::clone(&c[l]));
@@ -140,12 +140,12 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     if c[l][0] != 1 || !is_sorted(&c[l..r]) {
         return None;
     }
-    let mut m = Vec::new();
+    let mut m = Comp::new();
     for i in 0..l {
         m.push(Rc::clone(&c[i]));
     }
     let mut sum = 0;
-    let mut t = Vec::new();
+    let mut t = Tree::new();
     for i in l..r {
         t.extend(&*c[i]);
         sum += c[i][0];
@@ -195,7 +195,7 @@ fn next_comp(c: &Comp) -> Option<Comp> {
     }
     let mut res = unmerge(&c);
     // This loop is actually executed at most twice,
-    // see Lemma 15 of  the paper
+    // see Lemma 15 of the paper
     while let Some((u, l, r)) = res {
         if let Some(m) = next_merge(&u, l, r + 1) {
             return Some(m);
@@ -220,7 +220,7 @@ fn comp_size(c: &Comp) -> usize {
 // Return the component consising of a cycle of length n
 
 fn cycle(n: usize) -> Comp {
-    let mut c = Vec::new();
+    let mut c = Comp::new();
     let t = Rc::new(vec![1]);
     for _ in 0..n {
         c.push(Rc::clone(&t));
@@ -291,7 +291,7 @@ fn next_part(p: &Part) -> Option<Part> {
 // that is, the list of sizes of its components
 
 fn part(g: &Func) -> Part {
-    let mut p = Vec::new();
+    let mut p = Part::new();
     for i in 0..g.len() {
         p.push(comp_size(&g[i]) as u8);
     }
@@ -302,7 +302,7 @@ fn part(g: &Func) -> Part {
 // Return the functional digraph consisting of n self-loops
 
 fn loops(n: usize) -> Func {
-    let mut g = Vec::new();
+    let mut g = Func::new();
     let c = Rc::new(cycle(1));
     for _ in 0..n {
         g.push(Rc::clone(&c));
@@ -317,7 +317,7 @@ fn loops(n: usize) -> Func {
 // component of each size (the cycle)
 
 fn next_func(g: &Func) -> Option<Func> {
-    let mut f = Vec::new();
+    let mut f = Func::new();
     for h in (0..g.len()).rev() {
         if let Some(c) = next_comp(&g[h]) {
             for i in 0..h {
@@ -395,7 +395,7 @@ fn fill_tree_adj(t: &Tree, a: &mut Adj, i: usize, r: usize, b: usize) {
 // the first vertex of c
 
 fn comp_to_adj(c: &Comp, b: usize) -> Adj {
-    let mut a = Vec::new();
+    let mut a = Adj::new();
     let mut j = 0;
     for i in 0..c.len() {
         let mut a1 = tree_to_adj(&c[i], b + j);
@@ -414,7 +414,7 @@ fn comp_to_adj(c: &Comp, b: usize) -> Adj {
 // Compute the adjacency vector of functional digraph g
 
 fn func_to_adj(g: &Func) -> Adj {
-    let mut a = Vec::new();
+    let mut a = Adj::new();
     let mut b = 0;
     for i in 0..g.len() {
         let a1 = comp_to_adj(&g[i], b);
@@ -430,7 +430,7 @@ fn func_to_adj(g: &Func) -> Adj {
 
 fn adj_matrix(a: &Adj) -> Bits {
     let n = a.len();
-    let mut m = Vec::new();
+    let mut m = Bits::new();
     for i in 0..n {
         for j in 0..n {
             m.push(a[i] == j as u8);
@@ -475,7 +475,7 @@ fn print_digraph6(g: &Func) {
         s.push((n + 63) as u8 as char);
     } else {
         // 63 <= n <= 255, since args.size is u8
-        let mut b = Vec::new();
+        let mut b = Bits::new();
         for _ in 0..18 {
             b.push(n % 2 == 1);
             n /= 2;
