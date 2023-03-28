@@ -97,7 +97,7 @@ fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
     let mut u = Comp::new();
     let mut l = 0;
     while l < c.len() && c[l][0] == 1 {
-        u.push(Rc::clone(&c[l]));
+        u.push(c[l].clone());
         l += 1;
     }
     if l == c.len() {
@@ -114,7 +114,7 @@ fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
     }
     let mut i = l + 1;
     while i < c.len() {
-        u.push(Rc::clone(&c[i]));
+        u.push(c[i].clone());
         i += 1;
     }
     Some((u, l, r))
@@ -143,7 +143,7 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     }
     let mut m = Comp::new();
     for i in 0..l {
-        m.push(Rc::clone(&c[i]));
+        m.push(c[i].clone());
     }
     let mut sum = 0;
     let mut t = Tree::new();
@@ -154,7 +154,7 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     t[0] = sum;
     m.push(Rc::new(t));
     for i in r..c.len() {
-        m.push(Rc::clone(&c[i]));
+        m.push(c[i].clone());
     }
     if !is_min_rotation(&m) || !has_unmerge(&m, &c) {
         return None;
@@ -224,7 +224,7 @@ fn cycle(n: usize) -> Comp {
     let mut c = Comp::new();
     let t = Rc::new(vec![1]);
     for _ in 0..n {
-        c.push(Rc::clone(&t));
+        c.push(t.clone());
     }
     c
 }
@@ -306,7 +306,7 @@ fn loops(n: usize) -> Func {
     let mut g = Func::new();
     let c = Rc::new(cycle(1));
     for _ in 0..n {
-        g.push(Rc::clone(&c));
+        g.push(c.clone());
     }
     g
 }
@@ -322,14 +322,14 @@ fn next_func(g: &Func) -> Option<Func> {
     for h in (0..g.len()).rev() {
         if let Some(c) = next_comp(&g[h]) {
             for i in 0..h {
-                f.push(Rc::clone(&g[i]));
+                f.push(g[i].clone());
             }
             let n = comp_size(&c);
             f.push(Rc::new(c));
             for i in h + 1..g.len() {
                 let m = comp_size(&g[i]);
                 if m == n {
-                    f.push(Rc::clone(&f[h]));
+                    f.push(f[h].clone());
                 } else {
                     f.push(Rc::new(cycle(m)));
                 }
