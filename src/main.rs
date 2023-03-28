@@ -515,11 +515,12 @@ struct Args {
     #[arg(short, long, help = "Only generate connected digraphs")]
     connected: bool,
 
-    #[arg(short, long,
-          help = "Print the internal representation instead of digraph6")]
+    #[arg(short, long, conflicts_with = "quiet",
+          help = "Print internal representation instead of digraph6")]
     internal: bool,
 
-    #[arg(short, long, help = "Count the digraphs without printing them")]
+    #[arg(short, long, conflicts_with = "internal",
+          help = "Count digraphs without printing them")]
     quiet: bool,
 }
 

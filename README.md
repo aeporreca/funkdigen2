@@ -103,8 +103,8 @@ Arguments:
 
 Options:
   -c, --connected  Only generate connected digraphs
-  -i, --internal   Print the internal representation instead of digraph6
-  -q, --quiet      Count the digraphs without printing them
+  -i, --internal   Print internal representation instead of digraph6
+  -q, --quiet      Count digraphs without printing them
   -h, --help       Print help
   -V, --version    Print version
 ```
