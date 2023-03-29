@@ -96,7 +96,7 @@ fn is_min_rotation<T: Ord>(s: &[T]) -> bool {
 fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
     let mut u = Comp::new();
     let mut l = 0;
-    while l < c.len() && c[l][0] == 1 {
+    while l < c.len() && c[l].len() == 1 {
         u.push(c[l].clone());
         l += 1;
     }
@@ -125,7 +125,7 @@ fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
 
 fn has_unmerge(c: &Comp, u: &Comp) -> bool {
     let mut i = 0;
-    while i < c.len() && c[i][0] == 1 {
+    while i < c.len() && c[i].len() == 1 {
         i += 1;
     }
     u[i][0] == 1
@@ -136,7 +136,7 @@ fn has_unmerge(c: &Comp, u: &Comp) -> bool {
 // isomorphism code fo a component
 
 fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
-    if c[l][0] != 1 || !is_sorted(&c[l..r]) {
+    if c[l].len() != 1 || !is_sorted(&c[l..r]) {
         return None;
     }
     let mut m = Comp::new();
@@ -146,7 +146,7 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     let mut t = vec![1];
     for i in l + 1..r {
         t.extend(&*c[i]);
-        t[0] += c[i][0];
+        t[0] += c[i].len() as u8;
     }
     m.push(Rc::new(t));
     for i in r..c.len() {
