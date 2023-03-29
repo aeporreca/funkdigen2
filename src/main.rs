@@ -145,13 +145,11 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     for i in 0..l {
         m.push(c[i].clone());
     }
-    let mut sum = 0;
-    let mut t = Tree::new();
-    for i in l..r {
+    let mut t = vec![1];
+    for i in l + 1..r {
         t.extend(&*c[i]);
-        sum += c[i][0];
+        t[0] += c[i][0];
     }
-    t[0] = sum;
     m.push(Rc::new(t));
     for i in r..c.len() {
         m.push(c[i].clone());
