@@ -112,10 +112,8 @@ fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
         k += t[k] as usize;
         r += 1;
     }
-    let mut i = l + 1;
-    while i < c.len() {
+    for i in l + 1..c.len() {
         u.push(c[i].clone());
-        i += 1;
     }
     Some((u, l, r))
 }
