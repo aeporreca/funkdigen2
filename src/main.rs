@@ -105,11 +105,11 @@ fn unmerge(c: &Comp) -> Option<(Comp, usize, usize)> {
     }
     u.push(Rc::new(vec![1]));
     let t = &c[l];
-    let mut k = 1;
+    let mut i = 1;
     let mut r = l + 1;
-    while k < t.len() {
-        u.push(Rc::new(t[k..k + t[k] as usize].to_vec()));
-        k += t[k] as usize;
+    while i < t.len() {
+        u.push(Rc::new(t[i..i + t[i] as usize].to_vec()));
+        i += t[i] as usize;
         r += 1;
     }
     for i in l + 1..c.len() {
