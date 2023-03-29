@@ -172,12 +172,11 @@ fn next_merge(c: &Comp, mut l: usize, mut r: usize) -> Option<Comp> {
             r += 1;
         }
         if l == 0 {
-            break
+            return None;
         }
         l -= 1;
         r = l + 2;
     }
-    None
 }
 
 
