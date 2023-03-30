@@ -115,6 +115,14 @@ funkdigen2 -l 14 | labelg -S | sort > out-2.txt
 diff out-1.txt out-2.txt
 ```
 
+If you want to only generate connected functional digraphs (modulo self-loops) of, say, 14 vertices with `geng` + `watercluster2`, the equivalent of the `-c` option of `funkdigen2`, the corresponding command-line is
+
+```
+geng -cq 14 13:14 | watercluster2 o1 Z
+```
+
+where the option `-c` of `geng` only outputs connected graphs, and the numerical range of edges is 13 to 14 (rather than 0 to 14), since with less than 13 the graphs would be disconnected.
+
 
 ## Usage
 
