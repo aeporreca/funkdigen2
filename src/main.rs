@@ -256,8 +256,8 @@ fn sum_part(p: &Part) -> usize {
 }
 
 
-// Compute the next partition of integer n in lexicographic order, if
-// it exists. The algorithm is based on Algorithm 3.1 of Jerome
+// Compute the next partition of integer n in lexicographic order,
+// if it exists. The algorithm is based on Algorithm 3.1 of Jerome
 // Kelleher, Barry O'Sullivan, "Generating all partitions: A
 // comparison of two encodings", arXiv:0909.2331, 2015,
 // https://arxiv.org/abs/0909.2331
@@ -422,13 +422,14 @@ fn func_adj(g: &Func) -> Adj {
 
 
 // Convert an adjacency vector to an adjacency matrix represented as a
-// bit vector (containing the concatenation of the rows of the matrix)
+// bit vector (containing the concatenation of the rows of the
+// matrix), deleting self-loops if loops is false
 
-fn adj_matrix(a: &Adj) -> Bits {
+fn adj_matrix(a: &Adj, loops: bool) -> Bits {
     let mut m = Bits::new();
     for i in 0..a.len() {
         for j in 0..a.len() {
-            m.push(a[i] == j as u8);
+            m.push((loops || i != j) && a[i] == j as u8);
         }
     }
     m
@@ -436,10 +437,9 @@ fn adj_matrix(a: &Adj) -> Bits {
 
 
 // Convert a bit vector into an ASCII string according to the digraph6
-// specifications (https://users.cecs.anu.edu.au/~bdm/data/formats.txt,
-// function R(x))
+// specifications
 
-fn ascii(x: &Bits) -> String {
+fn bits_to_ascii(x: &Bits) -> String {
     let mut s = String::new();
     let mut i = 0;
     while i < x.len() {
@@ -458,16 +458,13 @@ fn ascii(x: &Bits) -> String {
 }
 
 
-// Print functional digraph g in digraph6 format, implements function
-// N(n) of the digraph6 specifications and uses R(x)
-// (https://users.cecs.anu.edu.au/~bdm/data/formats.txt)
+// Returns a string representing integer n (in the range 0..255) in
+// digraph6 ASCII format, implements function N(n) of the digraph6
+// specifications
 
-fn print_digraph6(g: &Func) {
-    print!("&");
-    let a = func_adj(&g);
-    let mut n = a.len();
+fn int_to_ascii(mut n: usize) -> String {
     if n < 63 {
-        print!("{}", (n as u8 + 63) as char);
+        ((n as u8 + 63) as char).to_string()
     } else {
         // 63 <= n <= 255, since args.size is u8
         let mut b = Bits::new();
@@ -476,11 +473,22 @@ fn print_digraph6(g: &Func) {
             n /= 2;
         }
         b.reverse();
-        print!("{}", 126 as char);
-        print!("{}", ascii(&b))
+        bits_to_ascii(&b)
     }
-    let m = adj_matrix(&a);
-    println!("{}", ascii(&m));
+}
+
+
+// Print functional digraph g in digraph6 format (described at
+// https://users.cecs.anu.edu.au/~bdm/data/formats.txt), deleting
+// self-loops first if loops is false
+
+fn print_digraph6(g: &Func, loops: bool) {
+    print!("&");
+    let a = func_adj(&g);
+    let n = a.len();
+    print!("{}", int_to_ascii(n));
+    let m = adj_matrix(&a, loops);
+    println!("{}", bits_to_ascii(&m));
 }
 
 
@@ -510,9 +518,14 @@ struct Args {
     #[arg(short, long, help = "Only generate connected digraphs")]
     connected: bool,
 
-    #[arg(short, long, conflicts_with = "quiet",
-          help = "Print internal representation instead of digraph6")]
+    #[arg(short, long, help = "Print internal representation \
+                               instead of digraph6")]
     internal: bool,
+
+    #[arg(short, long, conflicts_with = "internal",
+          conflicts_with = "quiet",
+          help = "Print digraph without self-loops (digraph6 only)")]
+    loopless: bool,
 
     #[arg(short, long, conflicts_with = "internal",
           help = "Count digraphs without printing them")]
@@ -530,12 +543,14 @@ fn main() {
     } else {
         generate_funcs
     };
-    let print = if args.quiet {
+    let print: fn(&Func) = if args.quiet {
         print_nothing
     } else if args.internal {
         print_internal
+    } else if args.loopless {
+        |g| print_digraph6(g, false)
     } else {
-        print_digraph6
+        |g| print_digraph6(g, true)
     };
     let now = Instant::now();
     let count = generate(n, print);
