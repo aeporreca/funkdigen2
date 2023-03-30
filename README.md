@@ -125,7 +125,7 @@ More specifically, `geng -q 14 0:14` generates all *undirected* graphs (so, with
 
 The digraphs obtained this way are all functional digraphs over 14 vertices up to isomorphism or, more precisely, in one-to-one correspondence with them, since all self-loops are missing: `geng` does not output undirected graphs with self-loops, so `watercluster2` has nowhere to add them.
 
-Specifically in order to compare its output with `geng` + `watercluster2`, `funkdigen2` has the (otherwise rather esoteric) command-line option `-l`, which removes all self-loops before printing the digraphs in `digraph6` format.
+Specifically in order to compare its output with `geng` + `watercluster2` for testing purposes, `funkdigen2` has the (otherwise rather esoteric) command-line option `-l`, which removes all self-loops before printing the digraphs in `digraph6` format.
 
 However, before comparing the output, you must keep in mind that `funkdigen2` and `geng` + `watercluster2` generally choose different representatives for the same isomorphism class of digraphs, and furthermore they are not output in the same order.
 
