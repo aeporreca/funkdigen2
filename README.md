@@ -150,7 +150,7 @@ where the option `-c` of `geng` only outputs connected graphs, and the numerical
 
 Being tailored to functional digraphs, `funkdigen2` is much faster at generating them than a way more general purpose combination of tools such as `geng` + `watercluster2`.
 
-Here are a few experiments run on a 2020 MacBook Air M1:
+Here are a few experiments run on a 2020 MacBook Air with an M1 processor:
 
 | n  | `geng` + <br> `watercluster2` | `funkdigen2` |
 |----|-------------------------------|--------------|
