@@ -91,6 +91,26 @@ $ funkdigen2 -i 5
 ```
 
 
+## Usage
+
+```
+Generate all functional digraphs up to isomorphism
+
+Usage: funkdigen2 [OPTIONS] <SIZE>
+
+Arguments:
+  <SIZE>  Number of vertices
+
+Options:
+  -c, --connected  Only generate connected digraphs
+  -i, --internal   Print internal representation instead of digraph6
+  -l, --loopless   Print digraphs without self-loops (digraph6 only)
+  -q, --quiet      Count digraphs without printing them
+  -h, --help       Print help
+  -V, --version    Print version
+```
+
+
 ## Comparison with `geng` + `watercluster2`
 
 You can generate (more or less, see below) the same output as `funkdigen2` by using the `geng` and `watercluster2` tools from the [`nauty & Traces`](https://pallini.di.uniroma1.it) distribution.
@@ -126,24 +146,9 @@ geng -cq 14 13:14 | watercluster2 o1 Z
 where the option `-c` of `geng` only outputs connected graphs, and the numerical range for the edges is 13 to 14 (rather than 0 to 14), since with less than 13 the graphs would be disconnected.
 
 
-## Usage
+### Performance
 
-```
-Generate all functional digraphs up to isomorphism
-
-Usage: funkdigen2 [OPTIONS] <SIZE>
-
-Arguments:
-  <SIZE>  Number of vertices
-
-Options:
-  -c, --connected  Only generate connected digraphs
-  -i, --internal   Print internal representation instead of digraph6
-  -l, --loopless   Print digraphs without self-loops (digraph6 only)
-  -q, --quiet      Count digraphs without printing them
-  -h, --help       Print help
-  -V, --version    Print version
-```
+Being tailored 
 
 
 ## Authors and license
