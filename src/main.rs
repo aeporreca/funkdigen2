@@ -524,7 +524,7 @@ struct Args {
 
     #[arg(short, long, conflicts_with = "internal",
           conflicts_with = "quiet",
-          help = "Print digraphs without self-loops (digraph6 only)")]
+          help = "Remove self-loops before printing (digraph6 only)")]
     loopless: bool,
 
     #[arg(short, long, conflicts_with = "internal",
