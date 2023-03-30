@@ -146,9 +146,9 @@ geng -cq 14 13:14 | watercluster2 o1 Z
 where the option `-c` of `geng` only outputs connected graphs, and the numerical range for the edges is 13 to 14 (rather than 0 to 14), since with less than 13 the graphs would be disconnected.
 
 
-### Performance
+### Performance comparison
 
-Being tailored 
+Being tailored to deal with functional digraphs, `funkdigen2` is much faster than a way more general purpose combination of tools such as `geng` + `watercluster2`.
 
 
 ## Authors and license
