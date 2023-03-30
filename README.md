@@ -93,7 +93,7 @@ $ funkdigen2 -i 5
 
 ## Comparison with `geng` + `watercluster2`
 
-You can generate (more or less, see below) the same output as `funkdigen` by using the `geng` and `watercluster2` tools from the `nauty & Traces` distribution.
+You can generate (more or less, see below) the same output as `funkdigen2` by using the `geng` and `watercluster2` tools from the `nauty & Traces` distribution.
 
 For instance, the following command line generates (essentially) all functional digraphs over 14 vertices:
 
