@@ -101,7 +101,7 @@ For instance, the following command line generates (essentially) all functional 
 geng -q 14 0:14 | watercluster2 o1 Z
 ```
 
-More specifically, `geng -q 14 0:14` generates all *undirected* graphs (so, without self-loops) over 14 vertices having between 0 and 14 edges. Then, `watercluster2 o1 Z` takes these graphs and makes them directed in every possible way, but restricting the outdegree of each vertex to 1 (option `o1`) and outputs the result in `digraph6` format (option `Z`). The bound of 14 on the number of edges makes the generation faster, since graphs with more than 14 edges would be discarded by `watercluster2 o1` anyway.
+More specifically, `geng -q 14 0:14` generates all *undirected* graphs (so, without self-loops) over 14 vertices having between 0 and 14 edges. Then, `watercluster2 o1 Z` takes these graphs and makes them directed in every possible way, but restricting the outdegree of each vertex to 1 (option `o1`) and outputs the result in `digraph6` format (option `Z`). The bound of 14 on the number of edges makes the generation faster, since graphs with more than 14 edges would be discarded by `watercluster2 o1` anyway (thanks to Brendan McKay for pointing this out).
 
 The digraphs obtained this way are the functional digraphs over 14 vertices, *except* that any self-loops are missing (because `geng` does not output graphs with self-loops).
 
