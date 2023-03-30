@@ -104,7 +104,7 @@ Arguments:
 Options:
   -c, --connected  Only generate connected digraphs
   -i, --internal   Print internal representation instead of digraph6
-  -l, --loopless   Print digraphs without self-loops (digraph6 only)
+  -l, --loopless   Remove self-loops before printing (digraph6 only)
   -q, --quiet      Count digraphs without printing them
   -h, --help       Print help
   -V, --version    Print version
