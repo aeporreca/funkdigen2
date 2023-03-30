@@ -111,7 +111,7 @@ Luckily, `nauty & Traces` come with the `labelg` tool, which outputs a canonical
 
 ```
 geng -q 14 0:14 | watercluster2 o1 Z | labelg -S | sort > out-1.txt
-funkdigen2 14 | labelg -S | sort > out-2.txt
+funkdigen2 -l 14 | labelg -S | sort > out-2.txt
 diff out-1.txt out-2.txt
 ```
 
