@@ -127,7 +127,7 @@ The digraphs obtained this way are all functional digraphs over 14 vertices up t
 
 Specifically in order to compare its output with `geng` + `watercluster2`, `funkdigen2` has the (otherwise rather esoteric) command-line option `-l`, which removes all self-loops before printing the digraphs in `digraph6` format.
 
-However, before comparing the output, you must keep in mind that `funkdigen2` and `geng` + `watercluster2` choose different representatives for the same isomorphism class of digraphs, and furthermore they are not output in the same order.
+However, before comparing the output, you must keep in mind that `funkdigen2` and `geng` + `watercluster2` generally choose different representatives for the same isomorphism class of digraphs, and furthermore they are not output in the same order.
 
 Luckily, `nauty & Traces` come with the `labelg` tool, which outputs a canonical form of its input, and the standard command `sort` solves the ordering problem. Be sure to use the `-S` option for `labelg`, which switches to a sparse representation internally and, as a consequence, is much faster for functional digraphs. Finally, you can use the `diff` Unix command (`fc` on Windows) to check that both programs produce the same output:
 
