@@ -153,7 +153,7 @@ Being tailored to functional digraphs, `funkdigen2` is much faster at generating
 Here are a few experiments (with the default options and output redirected to `/dev/null`) run on a 2020 MacBook Air with an M1 processor:
 
 | *n* | output size | `geng` + <br> `watercluster2` | `funkdigen2` |
-|-----|-------------|-------------------------------|--------------|
+|----:|------------:|------------------------------:|-------------:|
 | 10  | 142 KiB     | 24.0 ms                       | 11.6 ms      |
 | 11  | 480 KiB     | 73.1 ms                       | 30.8 ms      |
 | 12  | 1.49 MiB    | 250.2 ms                      | 89.3 ms      |
