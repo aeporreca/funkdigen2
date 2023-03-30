@@ -115,7 +115,7 @@ Options:
 
 You can generate (more or less, see below) the same output as `funkdigen2` by using the `geng` and `watercluster2` tools from the [`nauty & Traces`](https://pallini.di.uniroma1.it) distribution.
 
-For instance, the following command line generates (essentially) all functional digraphs over 14 vertices:
+For instance, the following command generates (essentially) all functional digraphs over 14 vertices:
 
 ```
 geng -q 14 0:14 | watercluster2 o1 Z
