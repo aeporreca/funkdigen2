@@ -121,7 +121,7 @@ If you want to only generate connected functional digraphs (modulo self-loops) o
 geng -cq 14 13:14 | watercluster2 o1 Z
 ```
 
-where the option `-c` of `geng` only outputs connected graphs, and the numerical range of edges is 13 to 14 (rather than 0 to 14), since with less than 13 the graphs would be disconnected.
+where the option `-c` of `geng` only outputs connected graphs, and the numerical range for the edges is 13 to 14 (rather than 0 to 14), since with less than 13 the graphs would be disconnected.
 
 
 ## Usage
