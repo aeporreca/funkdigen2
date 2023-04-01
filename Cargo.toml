@@ -9,7 +9,7 @@ authors = [
 ]
 
 [dependencies]
-clap = { version = "4.1.11", features = ["derive"] }
+clap = { version = "4.2.1", features = ["derive"] }
 
 [profile.release]
 strip = "symbols"
