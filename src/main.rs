@@ -132,8 +132,8 @@ fn has_unmerge(c: &Comp, u: &Comp) -> bool {
 }
 
 
-// Merge the trees c[l], ..., c[r - 1] if that gives a valid
-// isomorphism code fo a component
+// Merge trees c[l], ..., c[r - 1] if that gives a valid isomorphism
+// code for a component
 
 fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     if c[l].len() != 1 || !is_sorted(&c[l..r]) {
