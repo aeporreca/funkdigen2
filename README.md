@@ -161,7 +161,7 @@ where the option `-c` of `geng` only outputs connected graphs, and the numerical
 
 Being tailored to functional digraphs, `funkdigen2` is much faster at generating them than a way more general purpose combination of tools such as `geng` + `watercluster2`.
 
-Here are a few experiments (with the default options and output redirected to `/dev/null`) run on a 2020 MacBook Air with an M1 processor (the versions are `funkdigen2` 1.0.0 vs `nauty & Traces` 2.8.6).
+Here are a few experiments (with the default options and output redirected to `/dev/null`) run on a 2020 MacBook Air with an M1 processor (the versions are `nauty & Traces` 2.8.6 vs `funkdigen2` 1.0.0).
 
 | *n* | output<br>size | `geng` +<br>`watercluster2` | `funkdigen2` |
 |-----|----------------|-----------------------------|--------------|
