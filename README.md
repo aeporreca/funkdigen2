@@ -165,11 +165,11 @@ Here are a few experiments (with the default options and output redirected to `/
 
 | *n* | output<br>size | `geng` +<br>`watercluster2` | `funkdigen2` |
 |-----|----------------|-----------------------------|--------------|
-| 10  | 142 KiB        |  24.0 ms                    |  11.6 ms     |
-| 11  | 480 KiB        |  73.1 ms                    |  30.8 ms     |
-| 12  | 1.49 MiB       | 250.2 ms                    |  89.3 ms     |
-| 13  | 5.00 MiB       | 881.2 ms                    | 258.7 ms     |
-| 14  | 16.0 MiB       |   3.271 s                   | 766.5 ms     |
+| 10  | 142 KiB        |   0.024 s                   |   0.012 s    |
+| 11  | 480 KiB        |   0.073 s                   |   0.031 s    |
+| 12  | 1.49 MiB       |   0.250 s                   |   0.089 s    |
+| 13  | 5.00 MiB       |   0.881 s                   |   0.259 s    |
+| 14  | 16.0 MiB       |   3.271 s                   |   0.767 s    |
 | 15  | 52.0 MiB       |  12.756 s                   |   2.258 s    |
 | 16  | 166 MiB        |  50.574 s                   |   6.679 s    |
 | 17  | 539 MiB        | 215.836 s                   |  20.381 s    |
