@@ -145,7 +145,7 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     }
     let mut t = vec![1];
     for i in l + 1..r {
-        t.extend(&*c[i]);
+        t.extend_from_slice(&c[i]);
         t[0] += c[i].len() as u8;
     }
     m.push(Rc::new(t));
