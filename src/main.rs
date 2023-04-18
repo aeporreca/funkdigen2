@@ -316,9 +316,7 @@ fn next_func(g: &Func) -> Option<Func> {
     let mut f = Func::new();
     for h in (0..g.len()).rev() {
         if let Some(c) = next_comp(&g[h]) {
-            for i in 0..h {
-                f.push(g[i].clone());
-            }
+            f.extend_from_slice(&g[0..h]);
             let n = comp_size(&c);
             f.push(Rc::new(c));
             for i in h + 1..g.len() {
