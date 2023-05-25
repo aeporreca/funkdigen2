@@ -11,7 +11,7 @@ An efficient generator of functional digraphs (uniform outdegree 1) up to isomor
 - [Usage](#usage)
 - [Comparison with `geng` + `watercluster2`](#comparison-with-geng--watercluster2)
     - [Performance comparison](#performance-comparison)
-- [Authors and license](#authors-and-license)
+- [Credits](#credits)
 
 
 ## Background
@@ -176,6 +176,6 @@ Here are a few experiments (with the default options and output redirected to `/
 | 18  | 1.66 GiB       | 979.077 s                   | 60.427 s     |
 
 
-## Authors and license
+## Credits
 
 The `funkdigen2` software is copyright © 2023 by [Antonio E. Porreca](https://aeporreca.org) and [Ekaterina Timofeeva](https://www.linkedin.com/in/ektim239), and its source code is distributed under the GNU GPL 3.0 license. The development has been partly funded by the French [ANR](https://anr.fr) projet [FANs ANR-18-CE40-0002 (Foundations of Automata Networks)](http://sylvain.sene.pages.lis-lab.fr/fans/).
