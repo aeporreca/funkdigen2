@@ -5,22 +5,13 @@ An efficient generator of functional digraphs (uniform outdegree 1) up to isomor
 
 ## Contents
 
-- [Background](#background)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Output formats and compatibility](#output-formats-and-compatibility)
+- [Background and citing `funkdigen2`](#background-and-citing-funkdigen2)
 - [Comparison with `geng` + `watercluster2`](#comparison-with-geng--watercluster2)
     - [Performance comparison](#performance-comparison)
 - [Credits](#credits)
-
-
-## Background
-
-The `funkdigen2` generator is an implementation of the algorithms described in the paper
-
-> Antonio E. Porreca, Ekaterina Timofeeva, *Polynomial-delay generation of functional digraphs up to isomorphism*, arXiv:2302.13832, 2023, https://doi.org/10.48550/arXiv.2302.13832
-
-and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
 
 
 ## Installation
@@ -120,6 +111,17 @@ $ funkdigen2 -i 5
 [[[5, 1, 1, 1, 1]]]
 47 digraphs generated in 325.38µs
 ```
+
+
+## Background and citing `funkdigen2`
+
+The `funkdigen2` generator is an implementation of the algorithms described in the paper
+
+> Antonio E. Porreca, Ekaterina Timofeeva, *Polynomial-delay generation of functional digraphs up to isomorphism*, arXiv:2302.13832, 2023, https://doi.org/10.48550/arXiv.2302.13832
+
+which you can cite if you use this software, and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
+
+The only notable difference with respect to the paper and `funkdigen` is that the original theoretically optimal, linear-time lexicographically minimal list rotation algorithm (Kellogg S. Booth's [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one. The reason is that this is empirically faster for a number of vertices small enough to actually allow the generation process to terminate in reasonable time (even though `funkdigen2`, in principle, is able to handle up to 255 vertices).
 
 
 ## Comparison with `geng` + `watercluster2`
