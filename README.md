@@ -7,8 +7,8 @@ An efficient generator of functional digraphs (uniform outdegree 1) up to isomor
 
 - [Background](#background)
 - [Installation](#installation)
-- [Output formats](#output-formats)
 - [Usage](#usage)
+- [Output formats and compatibility](#output-formats-and-compatibility)
 - [Comparison with `geng` + `watercluster2`](#comparison-with-geng--watercluster2)
     - [Performance comparison](#performance-comparison)
 - [Credits](#credits)
@@ -36,7 +36,27 @@ cargo build --release
 inside the directory where you have uncompressed the source code downloaded from the [Releases](https://github.com/aeporreca/funkdigen2/releases) page (or cloned this repository, if you want the latest changes). After compiling, the executable `funkdigen2` (or `funkdigen2.exe`) will be found in the directory `./target/release`.
 
 
-## Output formats
+## Usage
+
+```
+Generate all functional digraphs up to isomorphism
+
+Usage: funkdigen2 [OPTIONS] <SIZE>
+
+Arguments:
+  <SIZE>  Number of vertices
+
+Options:
+  -c, --connected  Only generate connected digraphs
+  -i, --internal   Print internal representation instead of digraph6
+  -l, --loopless   Remove self-loops before printing (digraph6 only)
+  -q, --quiet      Count digraphs without printing them
+  -h, --help       Print help
+  -V, --version    Print version
+```
+
+
+## Output formats and compatibility
 
 The default output format for `funkdigen2` is [`digraph6`](https://users.cecs.anu.edu.au/~bdm/data/formats.html), which is essentially an [ASCII encoding](https://users.cecs.anu.edu.au/~bdm/data/formats.txt) of the number of nodes followed by the adjacency matrix of the digraph:
 
@@ -99,26 +119,6 @@ $ funkdigen2 -i 5
 [[[5, 4, 1, 1, 1]]]
 [[[5, 1, 1, 1, 1]]]
 47 digraphs generated in 325.38µs
-```
-
-
-## Usage
-
-```
-Generate all functional digraphs up to isomorphism
-
-Usage: funkdigen2 [OPTIONS] <SIZE>
-
-Arguments:
-  <SIZE>  Number of vertices
-
-Options:
-  -c, --connected  Only generate connected digraphs
-  -i, --internal   Print internal representation instead of digraph6
-  -l, --loopless   Remove self-loops before printing (digraph6 only)
-  -q, --quiet      Count digraphs without printing them
-  -h, --help       Print help
-  -V, --version    Print version
 ```
 
 
