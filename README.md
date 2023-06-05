@@ -1,7 +1,16 @@
 # funkdigen2
 
-An efficient generator of functional digraphs (uniform outdegree 1) up to isomorphism, also called mapping patterns, finite (endo)functions, or finite dynamical systems; see sequence [A001372](https://oeis.org/A001372) on the [OEIS](https://oeis.org). It is also possible to only generate *connected* functional digraphs (sequence [A002861](https://oeis.org/A002861) on the OEIS) with a command-line option.
+An efficient generator of functional digraphs (uniform outdegree 1) up to isomorphism, also called mapping patterns, finite (endo)functions, or finite dynamical systems; see sequence [A001372](https://oeis.org/A001372) on the [OEIS](https://oeis.org). It is also possible to only generate *connected* functional digraphs (sequence [A002861](https://oeis.org/A002861) on the OEIS) with a command-line switch.
 
+The basic [usage](#usage) is
+
+```
+funkdigen2 [-c] n
+```
+
+where $n$ is the number of vertices, and the optional switch `-c` forces the generation of connected functional digraphs only.
+
+`funkdigen2` is, in principle, able to handle up to 255 vertices, but generating all these digraphs is likely to take about a hundred orders of magnitudes longer than the current (June 2023) age of the universe, at least on our test machine anyway.
 
 ## Contents
 
@@ -92,7 +101,7 @@ With the command-line option `-i` you can also get the output in the internal `f
 
 A functional digraph has zero or more (weakly) connected components consisting of a limit cycle with (rooted, unordered, directed) trees having their roots along this cycle. This is reflected by the isomorphism codes used internally:
 
-- The [isomorphism code of a tree](https://doi.org/10.1007/978-3-030-81885-2_4) of *n* nodes is the list of integer obtained by concatenating [*n*] with the codes of its immediate subtrees, computed recursively, in lexicographic order. For instance, the almost-complete binary tree of 6 nodes has code [6, 2, 1, 3, 1, 1].
+- The [isomorphism code of a tree](https://doi.org/10.1007/978-3-030-81885-2_4) of $n$ nodes is the list of integer obtained by concatenating the list [$n$] with the codes of its immediate subtrees, computed recursively, in lexicographic order. For instance, the almost-complete binary tree of 6 nodes has code [6, 2, 1, 3, 1, 1].
 - The code of a connected component is the [lexicographically minimal rotation](https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation) of the list of codes of its trees, in the order in which they appear along the limit cycle.
 - The code of a functional digraph is the list of codes of its components, sorted nondecreasingly according to the order in which the components are generated (by Algorithm 1 in the [paper](https://doi.org/10.48550/arXiv.2302.13832), which is neither lexicographic, nor “nice” to describe, unfortunately).
 
@@ -121,7 +130,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 which you can cite if you use this software, and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
 
-The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one; as a consequence, the `funkdigen2` algorithm outputs digraphs with a $O(n^4)$ delay rather than the theoretical $O(n^3)$ delay. The reason for this choice is that the generation is empirically faster this way for a number of vertices small enough to actually allow the generation process to terminate in reasonable time (even though `funkdigen2`, in principle, is able to handle up to 255 vertices).
+The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one; as a consequence, the `funkdigen2` algorithm outputs digraphs with a $O(n^4)$ delay rather than the theoretical $O(n^3)$ delay. The reason for this choice is that the generation is empirically faster this way for a number of vertices small enough to actually allow the generation process to terminate in reasonable time.
 
 
 ## Comparison with `geng` + `watercluster2`
@@ -165,7 +174,7 @@ Being tailored to functional digraphs, `funkdigen2` is much faster at generating
 
 Here are a few experiments (with the default options and output redirected to `/dev/null`) run on a 2020 MacBook Air with an M1 processor (the versions are `nauty & Traces` 2.8.6 vs `funkdigen2` 1.0.0).
 
-| *n* | output<br>size | `geng` +<br>`watercluster2` | `funkdigen2` |
+| $n$ | output<br>size | `geng` +<br>`watercluster2` | `funkdigen2` |
 |-----|----------------|-----------------------------|--------------|
 | 10  | 142 KiB        |   0.024 s                   |  0.012 s     |
 | 11  | 480 KiB        |   0.073 s                   |  0.031 s     |
