@@ -25,12 +25,10 @@
 // https://github.com/aeporreca/funkdigen
 
 
-#[macro_use]
-extern crate lazy_static;
-
 use std::rc::Rc;
 use std::cmp::Ordering::{Less, Equal, Greater};
 use std::time::Instant;
+use lazy_static::lazy_static;
 use clap::Parser;
 
 
