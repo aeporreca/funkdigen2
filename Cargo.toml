@@ -10,6 +10,7 @@ authors = [
 
 [dependencies]
 clap = { version = "4.2.1", features = ["derive"] }
+lazy_static = "1.4.0"
 
 [profile.release]
 strip = "symbols"
