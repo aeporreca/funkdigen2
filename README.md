@@ -51,6 +51,7 @@ Options:
   -i, --internal   Print internal representation instead of digraph6
   -l, --loopless   Remove self-loops before printing (digraph6 only)
   -q, --quiet      Count digraphs without printing them
+  -b, --lcs        Use Booth's LCS algorithm for minimal rotations
   -h, --help       Print help
   -V, --version    Print version
 ```
@@ -130,7 +131,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 which you can cite if you use this software, and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
 
-The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one; as a consequence, the `funkdigen2` algorithm outputs digraphs with a $O(n^4)$ delay rather than the theoretical $O(n^3)$ delay. The reason for this choice is that the generation is empirically faster this way for a number of vertices small enough to actually allow the generation process to terminate in reasonable time.
+The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by default by a naive one; as a consequence, the `funkdigen2` algorithm outputs digraphs with a $O(n^4)$ delay rather than the theoretical $O(n^3)$ delay. The reason for this choice is that, this way, the generation is empirically faster for all values of $n$ up to 255 on our test machine. If you *really* want to use the LCS algorithm, the command-line switch `-b` (or `--lcs`) is available.
 
 
 ## Comparison with `geng` + `watercluster2`
