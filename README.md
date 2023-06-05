@@ -10,7 +10,7 @@ funkdigen2 [-c] <SIZE>
 
 where `<SIZE>` is the number of vertices, and the optional switch `-c` forces the generation of connected functional digraphs only.
 
-`funkdigen2` is, in principle, able to handle up to 255 vertices, but generating all these digraphs is likely to take about a hundred orders of magnitudes longer than the current (June 2023) age of the universe, at least on our test machine anyway.
+`funkdigen2` is, in principle, able to handle up to 255 vertices, but generating all those digraphs is likely to take about a hundred orders of magnitudes longer than the current (June 2023) age of the universe, at least on our test machine anyway.
 
 ## Contents
 
