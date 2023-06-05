@@ -25,6 +25,9 @@
 // https://github.com/aeporreca/funkdigen
 
 
+#[macro_use]
+extern crate lazy_static;
+
 use std::rc::Rc;
 use std::cmp::Ordering::{Less, Equal, Greater};
 use std::time::Instant;
@@ -68,15 +71,9 @@ fn is_sorted<T: Ord>(s: &[T]) -> bool {
 // Check if slice s is its own minimal rotation. This is a naive
 // algorithm which increases the theoretical runtime from O(n^3) but,
 // for slices of lengths corresponding to practical digraph sizes, it
-// seems to be more efficient in practice than linear-time algorithms
-// such as Kellogg S. Booth's LCS (described in "Lexicographically
-// least circular substrings", Information Processing Letters 10(4),
-// 1980, pages 240-242, https://doi.org/10.1016/0020-0190(80)90149-0
-// and in the errata at https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)
-// which we used in the paper in order to obtain the theoretical upper
-// bound.
+// seems to be more efficient in practice for n <= 255.
 
-fn is_min_rotation<T: Ord>(s: &[T]) -> bool {
+fn naive_is_min_rotation<T: Ord>(s: &[T]) -> bool {
     for r in 1..s.len() {
         for i in 0..s.len() {
             match s[i].cmp(&s[(i + r) % s.len()]) {
@@ -87,6 +84,40 @@ fn is_min_rotation<T: Ord>(s: &[T]) -> bool {
         }
     }
     true
+}
+
+
+// Check if slice s is its own minimal rotation. This is based on
+// the linear-time algorithms such as Kellogg S. Booth's LCS
+// (described in "Lexicographically least circular substrings",
+// Information Processing Letters 10(4), 1980, pages 240-242,
+// https://doi.org/10.1016/0020-0190(80)90149-0 and in the errata at
+// https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml) which we used in the
+// paper in order to obtain the theoretical upper bound, but it is
+// empirically slower that the naive algorithm for n <= 255.
+
+fn lcs_is_min_rotation<T: Ord>(s: &[T]) -> bool {
+    let n = s.len();
+    let mut f = vec![-1; 2 * n];
+    let mut k = 0;
+    for j in 1..2 * n {
+        let mut i: isize = f[j - k - 1 as usize];
+        while i != -1 && s[j % n] != s[(k + i as usize + 1) % n] {
+            if s[j % n] < s[(k + i as usize + 1) % n] {
+                k = j - i as usize - 1;
+            }
+            i = f[i as usize];
+        }
+        if i == -1 && s[j % n] != s[(k + i as usize + 1) % n] {
+            if s[j % n] < s[(k + i as usize + 1) % n] {
+                k = j;
+            }
+            f[j - k] = -1;
+        } else {
+            f[j - k] = i + 1;
+        }
+    }
+    s[k..] == s[..n - k] && s[..k] == s[n - k..]
 }
 
 
@@ -152,7 +183,7 @@ fn merge(c: &Comp, l: usize, r: usize) -> Option<Comp> {
     for i in r..c.len() {
         m.push(c[i].clone());
     }
-    if !is_min_rotation(&m) || !has_unmerge(&m, &c) {
+    if !IS_MIN_ROTATION(&m) || !has_unmerge(&m, &c) {
         return None;
     }
     Some(m)
@@ -228,7 +259,7 @@ fn cycle(n: usize) -> Comp {
 // Generate all components of n vertices, print them using the
 // supplied print function and return their count
 
-fn generate_comps(n: usize, print: fn(&Func)) -> u64 {
+fn generate_comps(n: usize) -> u64 {
     if n == 0 {
         return 0;
     }
@@ -236,7 +267,7 @@ fn generate_comps(n: usize, print: fn(&Func)) -> u64 {
     let mut count = 1;
     loop {
         let g: Func = vec![Rc::new(c.clone())];
-        print(&g);
+        PRINT_FUNC(&g);
         if let Some(d) = next_comp(&c) {
             count += 1;
             c = d;
@@ -312,7 +343,8 @@ fn loops(n: usize) -> Func {
 // otherwise, compute the next partition and restart with the first
 // component of each size (the cycle)
 
-fn next_func(g: &Func) -> Option<Func> {
+fn next_func(g: &Func)
+             -> Option<Func> {
     let mut f = Func::new();
     for h in (0..g.len()).rev() {
         if let Some(c) = next_comp(&g[h]) {
@@ -344,11 +376,11 @@ fn next_func(g: &Func) -> Option<Func> {
 // Generate all functional digraphs of n vertices, print them using
 // the supplied print function and return their count
 
-fn generate_funcs(n: usize, print: fn(&Func)) -> u64 {
+fn generate_funcs(n: usize) -> u64 {
     let mut g = loops(n);
     let mut count = 1;
     loop {
-        print(&g);
+        PRINT_FUNC(&g);
         if let Some(f) = next_func(&g) {
             count += 1;
             g = f;
@@ -421,13 +453,13 @@ fn func_adj(g: &Func) -> Adj {
 
 // Convert an adjacency vector to an adjacency matrix represented as a
 // bit vector (containing the concatenation of the rows of the
-// matrix), deleting self-loops if loops is false
+// matrix), deleting self-loops if ARGS.loopless is true
 
-fn adj_matrix(a: &Adj, loops: bool) -> Bits {
+fn adj_matrix(a: &Adj) -> Bits {
     let mut m = Bits::new();
     for i in 0..a.len() {
         for j in 0..a.len() {
-            m.push((loops || i != j) && a[i] == j as u8);
+            m.push((!ARGS.loopless || i != j) && a[i] == j as u8);
         }
     }
     m
@@ -478,14 +510,14 @@ fn int_to_ascii(mut n: usize) -> String {
 
 // Print functional digraph g in digraph6 format (described at
 // https://users.cecs.anu.edu.au/~bdm/data/formats.txt), deleting
-// self-loops first if loops is false
+// self-loops first if ARGS.loopless is true
 
-fn print_digraph6(g: &Func, loops: bool) {
+fn print_digraph6(g: &Func) {
     print!("&");
     let a = func_adj(&g);
     let n = a.len();
     print!("{}", int_to_ascii(n));
-    let m = adj_matrix(&a, loops);
+    let m = adj_matrix(&a);
     println!("{}", bits_to_ascii(&m));
 }
 
@@ -516,8 +548,8 @@ struct Args {
     #[arg(short, long, help = "Only generate connected digraphs")]
     connected: bool,
 
-    #[arg(short, long, help = "Print internal representation \
-                               instead of digraph6")]
+    #[arg(short, long, help = "Print internal \
+        representation instead of digraph6")]
     internal: bool,
 
     #[arg(short, long, conflicts_with = "internal",
@@ -528,30 +560,48 @@ struct Args {
     #[arg(short, long, conflicts_with = "internal",
           help = "Count digraphs without printing them")]
     quiet: bool,
+
+    #[arg(short = 'b', long, help = "Use Booth's \
+        LCS algorithm for minimal rotations")]
+    lcs: bool,
+}
+
+
+// Program options
+
+lazy_static! {
+
+    static ref ARGS: Args = Args::parse();
+
+    static ref GENERATE: fn(usize) -> u64 = if ARGS.connected {
+        generate_comps
+    } else {
+        generate_funcs
+    };
+
+    static ref PRINT_FUNC: fn(&Func) = if ARGS.quiet {
+        print_nothing
+    } else if ARGS.internal {
+        print_internal
+    } else {
+        print_digraph6
+    };
+
+    static ref IS_MIN_ROTATION: fn(&Comp) -> bool = if ARGS.lcs {
+        |s| lcs_is_min_rotation(s)
+    } else {
+        |s| naive_is_min_rotation(s)
+    };
+
 }
 
 
 // Main program
 
 fn main() {
-    let args = Args::parse();
-    let n = args.size as usize;
-    let generate = if args.connected {
-        generate_comps
-    } else {
-        generate_funcs
-    };
-    let print: fn(&Func) = if args.quiet {
-        print_nothing
-    } else if args.internal {
-        print_internal
-    } else if args.loopless {
-        |g| print_digraph6(g, false)
-    } else {
-        |g| print_digraph6(g, true)
-    };
+    let n = ARGS.size as usize;
     let now = Instant::now();
-    let count = generate(n, print);
+    let count = GENERATE(n);
     let time = now.elapsed();
     eprintln!("{count} digraphs generated in {time:.2?}");
 }
