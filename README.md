@@ -5,10 +5,10 @@ An efficient generator of functional digraphs (uniform outdegree 1) up to isomor
 The basic [usage](#usage) is
 
 ```
-funkdigen2 [-c] n
+funkdigen2 [-c] <SIZE>
 ```
 
-where $n$ is the number of vertices, and the optional switch `-c` forces the generation of connected functional digraphs only.
+where `<SIZE>` is the number of vertices, and the optional switch `-c` forces the generation of connected functional digraphs only.
 
 `funkdigen2` is, in principle, able to handle up to 255 vertices, but generating all these digraphs is likely to take about a hundred orders of magnitudes longer than the current (June 2023) age of the universe, at least on our test machine anyway.
 
