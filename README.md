@@ -121,7 +121,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 which you can cite if you use this software, and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
 
-The only notable difference with respect to the paper and `funkdigen` is that the original theoretically optimal, linear-time lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one. The reason is that this is empirically faster for a number of vertices small enough to actually allow the generation process to terminate in reasonable time (even though `funkdigen2`, in principle, is able to handle up to 255 vertices).
+The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one. The reason is that this is empirically faster for a number of vertices small enough to actually allow the generation process to terminate in reasonable time (even though `funkdigen2`, in principle, is able to handle up to 255 vertices).
 
 
 ## Comparison with `geng` + `watercluster2`
