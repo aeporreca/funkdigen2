@@ -88,7 +88,7 @@ Graph 47, order 5.
   4 : 0;
 ```
 
-With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is a bit faster and asymptotically smaller (O(*n* log *n*) vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
+With the command-line option `-i` you can also get the output in the internal `funkdigen2` format, which is described in the [paper](https://doi.org/10.48550/arXiv.2302.13832) itself (Definitions 1, 2 and 23, as well as Examples 10 and 25); this is a bit faster and asymptotically smaller ($O(n \log n)$ vs quadratic space) but, since only `funkdigen2` and its predecessor use this format, it is probably only useful if you are trying to understand how the algorithms work.
 
 A functional digraph has zero or more (weakly) connected components consisting of a limit cycle with (rooted, unordered, directed) trees having their roots along this cycle. This is reflected by the isomorphism codes used internally:
 
@@ -121,7 +121,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 which you can cite if you use this software, and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
 
-The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one. The reason is that this is empirically faster for a number of vertices small enough to actually allow the generation process to terminate in reasonable time (even though `funkdigen2`, in principle, is able to handle up to 255 vertices).
+The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by a naive one; as a consequence, the `funkdigen2` algorithm outputs digraphs with a $O(n^4)$ delay rather than the theoretical $O(n^3)$ delay. The reason for this choice is that the generation is empirically faster this way for a number of vertices small enough to actually allow the generation process to terminate in reasonable time (even though `funkdigen2`, in principle, is able to handle up to 255 vertices).
 
 
 ## Comparison with `geng` + `watercluster2`
