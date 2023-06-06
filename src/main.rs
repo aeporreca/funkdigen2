@@ -99,7 +99,7 @@ fn lcs_is_min_rotation<T: Ord>(s: &[T]) -> bool {
     let mut f = vec![-1; 2 * n];
     let mut k = 0;
     for j in 1..2 * n {
-        let mut i: isize = f[j - k - 1 as usize];
+        let mut i = f[j - k - 1 as usize];
         while i != -1 && s[j % n] != s[(k + i as usize + 1) % n] {
             if s[j % n] < s[(k + i as usize + 1) % n] {
                 k = j - i as usize - 1;
