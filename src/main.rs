@@ -547,7 +547,7 @@ struct Args {
     connected: bool,
 
     #[arg(short, long, help = "Print internal \
-        representation instead of digraph6")]
+          representation instead of digraph6")]
     internal: bool,
 
     #[arg(short, long, conflicts_with = "internal",
@@ -560,7 +560,7 @@ struct Args {
     quiet: bool,
 
     #[arg(short = 'b', long, help = "Use Booth's \
-        LCS algorithm for minimal rotations")]
+          LCS algorithm for minimal rotations")]
     lcs: bool,
 }
 
