@@ -341,8 +341,7 @@ fn loops(n: usize) -> Func {
 // otherwise, compute the next partition and restart with the first
 // component of each size (the cycle)
 
-fn next_func(g: &Func)
-             -> Option<Func> {
+fn next_func(g: &Func) -> Option<Func> {
     let mut f = Func::new();
     for h in (0..g.len()).rev() {
         if let Some(c) = next_comp(&g[h]) {
