@@ -127,7 +127,7 @@ $ funkdigen2 -i 5
 
 The `funkdigen2` generator is an implementation of the algorithms described in the paper
 
-> Antonio E. Porreca, Ekaterina Timofeeva, *Polynomial-delay generation of functional digraphs up to isomorphism*, arXiv:2302.13832, 2023, https://doi.org/10.48550/arXiv.2302.13832
+> Oscar Defrain, Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, _Discrete Applied Mathematics_ 357, 24–33, 2024, https://doi.org/10.1016/j.dam.2024.05.030
 
 which you can cite if you use this software, and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
 
@@ -190,4 +190,4 @@ Here are a few experiments (with the default options and output redirected to `/
 
 ## Credits
 
-The `funkdigen2` software is copyright © 2023 by [Antonio E. Porreca](https://aeporreca.org) and [Ekaterina Timofeeva](https://www.linkedin.com/in/ektim239), and its source code is distributed under the GNU GPL 3.0 license. The development has been partly funded by the French [ANR](https://anr.fr) projet [FANs ANR-18-CE40-0002 (Foundations of Automata Networks)](http://sylvain.sene.pages.lis-lab.fr/fans/).
+The `funkdigen2` software is copyright © 2024 by [Oscar Defrain](https://pageperso.lis-lab.fr/oscar.defrain/), [Antonio E. Porreca](https://aeporreca.org) and [Ekaterina Timofeeva](https://www.linkedin.com/in/ektim239), and its source code is distributed under the GNU GPL 3.0 license. The development has been partly funded by the French [ANR](https://anr.fr) projet [FANs ANR-18-CE40-0002 (Foundations of Automata Networks)](http://sylvain.sene.pages.lis-lab.fr/fans/).
