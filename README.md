@@ -1,3 +1,6 @@
+> ⚠️ The current version of `funkdigen2` is outdated with respect to the algorithms described in [the final version of our paper](https://doi.org/10.1016/j.dam.2024.05.030). A (faster) update is hopefully coming soon.
+
+
 # funkdigen2
 
 An efficient generator of functional digraphs (uniform outdegree 1) up to isomorphism, also called mapping patterns, finite (endo)functions, or finite dynamical systems; see sequence [A001372](https://oeis.org/A001372) on the [OEIS](https://oeis.org). It is also possible to only generate *connected* functional digraphs (sequence [A002861](https://oeis.org/A002861) on the OEIS) with a command-line switch.
@@ -129,7 +132,11 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 > Oscar Defrain, Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, _Discrete Applied Mathematics_ 357, 24–33, 2024, https://doi.org/10.1016/j.dam.2024.05.030
 
-which you can cite if you use this software, and a more efficient version of the original [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
+or, more precisely, a previous version of that paper:
+
+> Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, https://arxiv.org/abs/2302.13832v2
+
+which you can cite if you use this software, and a more efficient version of the [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of the same algorithms.
 
 The only notable algorithmic difference with respect to the paper and `funkdigen` is that the original, theoretically optimal (linear-time) lexicographically minimal list rotation algorithm (Kellogg S. Booth’s [LCS](https://www.cs.ubc.ca/~ksbooth/PUB/LCS.shtml)) has been replaced by default by a naive one; as a consequence, the `funkdigen2` algorithm outputs digraphs with a $O(n^4)$ delay rather than the theoretical $O(n^3)$ delay. The reason for this choice is that, this way, the generation is empirically faster for all values of $n$ up to 255 on our test machine. If you *really* want to use the LCS algorithm, the command-line switch `-b` (or `--lcs`) is available.
 
