@@ -104,7 +104,7 @@ mod comp {
         None
     }
 
-    pub fn parent(c: &Comp) -> Option<Comp> {
+    pub fn parent(c: &Comp) -> Option<(Comp, usize)> {
         let k = c.len();
         for i in 0..k {
             if c[i].len() > 1 {
@@ -113,26 +113,13 @@ mod comp {
                 if t1 <= t2 {
                     d.push(t1.into());
                     d.push(t2.into());
+                    d.extend_from_slice(&c[i+1..]);
+                    return Some((d, i));
                 } else {
                     d.push(t2.into());
                     d.push(t1.into());
-                }
-                d.extend_from_slice(&c[i+1..]);
-                return Some(d);
-            }
-        }
-        None
-    }
-
-    pub fn backtrack(c: &Comp) -> Option<usize> {
-        let k = c.len();
-        for i in 0..k {
-            if c[i].len() > 1 {
-                let (t1, t2) = tree::unmerge(&c[i]);
-                if t1 <= t2 {
-                    return Some(i);
-                } else {
-                    return Some(i + k);
+                    d.extend_from_slice(&c[i+1..]);
+                    return Some((d, i + k));
                 }
             }
         }
@@ -161,7 +148,7 @@ mod comp {
                 let candidate = candidate(&curr, i);
                 i += 1;
                 if let Some(next) = candidate {
-                    let parent = parent(&next).unwrap();
+                    let (parent, _) = parent(&next).unwrap();
                     if parent == curr {
                         curr = next;
                         depth = 1 - depth;
@@ -178,8 +165,8 @@ mod comp {
                     count += 1;
                     PRINT_FUNC(&curr);
                 }
-                i = backtrack(&curr).unwrap() + 1;
-                curr = parent(&curr).unwrap();
+                (curr, i) = parent(&curr).unwrap();
+                i += 1;
                 depth = 1 - depth;
             }
         }
