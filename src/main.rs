@@ -176,7 +176,6 @@ mod comp {
 }
 
 
-
 fn naive_is_min_rotation<T: Ord>(s: &[T]) -> bool {
     for r in 1..s.len() {
         for i in 0..s.len() {
