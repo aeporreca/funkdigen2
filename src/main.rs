@@ -1,3 +1,10 @@
+use std::cmp::Ordering::{Less, Equal, Greater};
+use clap::Parser;
+use crate::comp::Comp;
+use lazy_static::lazy_static;
+use std::time::Instant;
+
+
 mod tree {
 
     pub type Tree = Vec<u8>;
@@ -47,7 +54,7 @@ mod comp {
 
     use std::rc::Rc;
     use crate::tree;
-    use crate::is_min_rotation;
+    use crate::IS_MIN_ROTATION;
 
     pub type Comp = Vec<Rc<tree::Tree>>;
 
@@ -66,7 +73,7 @@ mod comp {
                 return false;
             }
         }
-        is_min_rotation(&c)
+        IS_MIN_ROTATION(&c)
     }
 
     pub fn n_candidates(c: &Comp) -> usize {
@@ -182,9 +189,8 @@ mod comp {
 }
 
 
-use std::cmp::Ordering::{Less, Equal, Greater};
 
-fn is_min_rotation<T: Ord>(s: &[T]) -> bool {
+fn naive_is_min_rotation<T: Ord>(s: &[T]) -> bool {
     for r in 1..s.len() {
         for i in 0..s.len() {
             match s[i].cmp(&s[(i + r) % s.len()]) {
@@ -198,7 +204,30 @@ fn is_min_rotation<T: Ord>(s: &[T]) -> bool {
 }
 
 
-use crate::comp::Comp;
+fn lcs_is_min_rotation<T: Ord>(s: &[T]) -> bool {
+    let n = s.len();
+    let mut f = vec![-1; 2 * n];
+    let mut k = 0;
+    for j in 1..2 * n {
+        let mut i = f[j - k - 1 as usize];
+        while i != -1 && s[j % n] != s[(k + i as usize + 1) % n] {
+            if s[j % n] < s[(k + i as usize + 1) % n] {
+                k = j - i as usize - 1;
+            }
+            i = f[i as usize];
+        }
+        if i == -1 && s[j % n] != s[(k + i as usize + 1) % n] {
+            if s[j % n] < s[(k + i as usize + 1) % n] {
+                k = j;
+            }
+            f[j - k] = -1;
+        } else {
+            f[j - k] = i + 1;
+        }
+    }
+    s[k..] == s[..n - k] && s[..k] == s[n - k..]
+}
+
 
 fn print_internal(c: &Comp) {
     println!("{c:?}");
@@ -210,7 +239,6 @@ fn print_nothing(_c: &Comp) {
 }
 
 
-use clap::Parser;
 
 #[derive(Parser)]
 #[command(version, about)]
@@ -221,10 +249,13 @@ struct Args {
     #[arg(short, long, conflicts_with = "internal",
           help = "Count digraphs without printing them")]
     quiet: bool,
+
+    #[arg(short = 'b', long, help = "Use Booth's \
+          LCS algorithm for minimal rotations")]
+    lcs: bool,
 }
 
 
-use lazy_static::lazy_static;
 
 lazy_static! {
 
@@ -236,10 +267,14 @@ lazy_static! {
         print_internal
     };
 
+    static ref IS_MIN_ROTATION: fn(&Comp) -> bool = if ARGS.lcs {
+        |s| lcs_is_min_rotation(s)
+    } else {
+        |s| naive_is_min_rotation(s)
+    };
+
 }
 
-
-use std::time::Instant;
 
 fn main() {
     let n = ARGS.size as usize;
