@@ -254,8 +254,8 @@ fn cycle(n: usize) -> Comp {
 }
 
 
-// Generate all components of n vertices, print them using the
-// supplied print function and return their count
+// Generate all components of n vertices, print them
+// and return their count
 
 fn generate_comps(n: usize) -> u64 {
     if n == 0 {
@@ -370,8 +370,8 @@ fn next_func(g: &Func) -> Option<Func> {
 }
 
 
-// Generate all functional digraphs of n vertices, print them using
-// the supplied print function and return their count
+// Generate all functional digraphs of n vertices,
+// print them and return their count
 
 fn generate_funcs(n: usize) -> u64 {
     let mut g = loops(n);
