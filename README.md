@@ -1,4 +1,4 @@
-> ⚠️ The current version of `funkdigen2` implements the algorithms of [a previous version of our paper](https://arxiv.org/abs/2302.13832v2) rather than the theoretically better ones described [in the final version](https://doi.org/10.1016/j.dam.2024.05.030), because a straightforward implementation of the latter actually turns out to be slower in practice for digraphs with a reasonable number of vertices (i.e., less than 256). Further 
+> ⚠️ The current version of `funkdigen2` implements the algorithms of [a previous version of our paper](https://arxiv.org/abs/2302.13832v2) rather than the theoretically better ones described [in the final version](https://doi.org/10.1016/j.dam.2024.05.030), because a straightforward implementation of the latter actually turns out to be slower in practice for digraphs with a reasonable number of vertices (i.e., less than 256). Hopefully a future, more efficient implementation can bridge the gap.
 
 
 # funkdigen2
