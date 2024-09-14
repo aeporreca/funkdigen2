@@ -160,9 +160,9 @@ However, before comparing the output, you must keep in mind that `funkdigen2` an
 Luckily, `nauty & Traces` come with the `labelg` tool, which outputs a canonical form of its input, and the standard command `sort` solves the ordering problem. Be sure to use the `-S` option for `labelg`, which switches to a sparse representation internally and, as a consequence, is much faster for functional digraphs. Finally, you can use the `diff` Unix command (`fc` on Windows) to check that both programs produce the same output:
 
 ```
-geng -q 14 0:14 | watercluster2 o1 Z | labelg -S | sort > out-1.txt
-funkdigen2 -l 14 | labelg -S | sort > out-2.txt
-diff out-1.txt out-2.txt
+geng -q 14 0:14 | watercluster2 o1 Z | labelg -S | sort > geng.txt
+funkdigen2 -l 14 | labelg -S | sort > funkdigen2.txt
+diff geng.txt funkdigen2.txt
 ```
 
 If you want to only generate connected functional digraphs (modulo self-loops) of, say, 14 vertices with `geng` + `watercluster2`, the equivalent of the `-c` option of `funkdigen2`, the corresponding command-line is
