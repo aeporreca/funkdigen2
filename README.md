@@ -132,7 +132,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 > Oscar Defrain, Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, _Discrete Applied Mathematics_ 357, 24–33, 2024, https://doi.org/10.1016/j.dam.2024.05.030
 
-which you can cite if you use this software or, more precisely, a previous version of that paper:
+which you can cite if you use this software or, more precisely, in a previous version of that paper:
 
 > Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, https://arxiv.org/abs/2302.13832v2
 
