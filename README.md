@@ -1,6 +1,3 @@
-> ⚠️ The current version of `funkdigen2` implements the algorithms of [a previous version of our paper](https://arxiv.org/abs/2302.13832v2) rather than the theoretically better ones described [in the final version](https://doi.org/10.1016/j.dam.2024.05.030), because a straightforward implementation of the latter actually turns out to be slower in practice for digraphs with a reasonable number of vertices (i.e., less than 256). Hopefully a future, more efficient implementation can bridge the gap.
-
-
 # funkdigen2
 
 An efficient generator of functional digraphs (uniform outdegree 1) up to isomorphism, also called mapping patterns, finite (endo)functions, or finite dynamical systems; see sequence [A001372](https://oeis.org/A001372) on the [OEIS](https://oeis.org). It is also possible to only generate *connected* functional digraphs (sequence [A002861](https://oeis.org/A002861) on the OEIS) with a command-line switch.
@@ -132,9 +129,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 > Oscar Defrain, Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, _Discrete Applied Mathematics_ 357, 24–33, 2024, https://doi.org/10.1016/j.dam.2024.05.030
 
-which you can cite if you use this software or, more precisely, in a previous version of that paper:
-
-> Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, https://arxiv.org/abs/2302.13832v2
+which you can cite if you use this software or, more precisely, of the algorithms in [a previous version of that paper](https://arxiv.org/abs/2302.13832v2) (the reason is that a straightforward implementation of the former paper actually turns out to be slower in practice for digraphs with less than 256 vertices; hopefully a future, more efficient implementation can bridge the gap.)
 
 This software is a more efficient version of [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of these algorithms.
 
