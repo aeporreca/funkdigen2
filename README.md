@@ -129,7 +129,7 @@ The `funkdigen2` generator is an implementation of the algorithms described in t
 
 > Oscar Defrain, Antonio E. Porreca, Ekaterina Timofeeva, Polynomial-delay generation of functional digraphs up to isomorphism, _Discrete Applied Mathematics_ 357, 24–33, 2024, https://doi.org/10.1016/j.dam.2024.05.030
 
-which you can cite if you use this software or, more precisely, of the algorithms in [a previous version of that paper](https://arxiv.org/abs/2302.13832v2) (the reason is that a straightforward implementation of the final paper actually turns out to be slower in practice for digraphs with less than 256 vertices; hopefully a future, more efficient implementation can bridge the gap.)
+which you can cite if you use this software or, more precisely, of the algorithms in [a previous version of that paper](https://arxiv.org/abs/2302.13832v2) (the reason is that a straightforward implementation of the final paper actually turns out to be slower in practice for digraphs with less than 256 vertices; hopefully a future, more efficient implementation can bridge the gap).
 
 This software is a more efficient version of [`funkdigen`](https://github.com/aeporreca/funkdigen), which is a proof-of-concept, straightforward Python implementation of these algorithms.
 
